@@ -21,10 +21,16 @@ const view = canvas.transferControlToOffscreen();
     await Assets.load(['img/1.png']);
     await Assets.load(['img/3.png']);
     await Assets.load(['img/4.png']);
+    await Assets.load(['img/tiles.png']);
+
 
     const background = Sprite.from('img/1.png')
     const clouds1 = Sprite.from('img/3.png')
     const clouds2 = Sprite.from('img/4.png')
+    const tiles = Sprite.from('img/tiles.png')
+
+   
+
 
 
 
@@ -38,21 +44,22 @@ const view = canvas.transferControlToOffscreen();
     clouds2.width = width * 2.7;
     clouds2.height = height;
 
+    tiles.width +=0;
+    tiles.height +=50;
+
+
+    tiles.y += 500;
+    
+
+    
 
 
 
-    app.stage.addChild(background, clouds1, clouds2);
+
+    app.stage.addChild(background, clouds1, clouds2, tiles);
 
 
-    app.ticker.add((delta) => {
-        // Move clouds2 to the left
-        clouds2.x -= 1 * delta;
-
-        // Reset clouds2 position when it goes off-screen
-        if (clouds2.x < -clouds2.width) {
-            clouds2.x = width;
-        }
-    });
+  
 
 
 
