@@ -34,6 +34,7 @@ const app = new PIXI.Application({ view: canvas });
   const clouds2 = Sprite.from("img/4.png");
   const tiles = Sprite.from("img/tiles.png");
   const player1 = Sprite.from("img/image.png");
+
   player1.interactive = true;
 
   // give the spirtes their inital placement +++++++++++++++++
@@ -84,27 +85,29 @@ const app = new PIXI.Application({ view: canvas });
         player1.y = originalPointOfPlayer;
         isJumping = false;
         jumpVelocity = -20
-
       }
-    }
-
-    if (!isJumping) {
+    } else {
       const tileMinX = tiles.y;
       const tileMaxX = tiles.y + tiles.height;
 
       if (player1.x < tileMinX || player1.x > tileMaxX) {
         player1.y += gravityVelocity * 5;
 
-       
       }
-    }
 
-    if (isJumping) {
-      if (keyPressed.ArrowLeft) {
-        player1.x -= 100;
+
+      if (player1.y > appHeight) {
+        showGameOverScreen();
       }
-    } if (keyPressed.ArrowRight) {
-      player1.x += 100;
+
+
+      if (isJumping) {
+        if (keyPressed.ArrowLeft) {
+          player1.x -= 100;
+        }
+      } if (keyPressed.ArrowRight) {
+        player1.x += 100;
+      }
     }
   });
 
@@ -126,7 +129,7 @@ const app = new PIXI.Application({ view: canvas });
 
 
 
-
+   
 
 
 
