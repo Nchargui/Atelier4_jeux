@@ -26,6 +26,7 @@ const app = new PIXI.Application({ view: canvas });
     "img/4.png",
     "img/tiles.png",
     "img/image.png",
+
   ]);
 
   const background = Sprite.from("img/1.png");
@@ -33,8 +34,10 @@ const app = new PIXI.Application({ view: canvas });
   const clouds2 = Sprite.from("img/4.png");
   const tiles = Sprite.from("img/tiles.png");
   const player1 = Sprite.from("img/image.png");
+  player1.interactive = true;
 
   // give the spirtes their inital placement +++++++++++++++++
+
 
   background.width = appWidth; //background ======
   background.height = appHeight;
@@ -46,34 +49,87 @@ const app = new PIXI.Application({ view: canvas });
   clouds2.height = appHeight;
 
 
-  tiles.height = appWidth;
-  tiles.width = appHeight;
-  tiles.y += 50;
+  tiles.width = appHeight * 3.7;
+  tiles.height = appWidth / 2
 
-  player1.scale.set(2);
-  player1.x = canvas.width / 2;
-  player1.y = canvas.height / 2;
+  //+++++++++++++++++
+
+
+  // setting des player's position and size
+  player1.position.set(200, 490);
+  player1.scale.set(0.5, 0.5)
+
 
   //bring up the sprites
   app.stage.addChild(background, clouds1, clouds2, tiles, player1);
 
-  // class for the box of player
-  // class Box {
-  //     constructor(player)
-  // }
+  ///// GRAVITY //////////////////////////////////////
+  var isJumping = false
+  var jumpVelocity = -30;
+  var gravityVelocity = 4;
+  var originalPointOfPlayer = player1.y;
+  var movingSpriteMesure = 10;
 
-  ///// GRAVITY //////
+  // function for the movment of the player
+  document.addEventListener('keydown', keyPressed);
 
-  let gravity = new Point(0, 0.5); // Adjust the Y value to control gravity strength
 
-  function applyGravity() {
-    player1.y += gravity.y;
+
+  app.ticker.add(() => {
+    if (isJumping) {
+      player1.y += jumpVelocity;
+      jumpVelocity += gravityVelocity;
+
+      if (player1.y >= originalPointOfPlayer) {
+        player1.y = originalPointOfPlayer;
+        isJumping = false;
+        jumpVelocity = -20
+
+      }
+    }
+
+    if (!isJumping) {
+      const tileMinX = tiles.y;
+      const tileMaxX = tiles.y + tiles.height;
+
+      if (player1.x < tileMinX || player1.x > tileMaxX) {
+        player1.y += gravityVelocity * 5;
+
+       
+      }
+    }
+
+    if (isJumping) {
+      if (keyPressed.ArrowLeft) {
+        player1.x -= 100;
+      }
+    } if (keyPressed.ArrowRight) {
+      player1.x += 100;
+    }
+  });
+
+
+
+
+  function keyPressed(event) {
+    if (event.key === "ArrowUp" && !isJumping) {
+      isJumping = true;
+
+    } else if (event.key === 'ArrowRight') {
+      player1.x += movingSpriteMesure;
+
+    } else if (event.key === 'ArrowLeft') {
+      player1.x -= movingSpriteMesure;
+    }
   }
 
-  function animate() {
-    applyGravity();
-    window.requestAnimationFrame(animate);
-  }
 
-  animate();
+
+
+
+
+
+
+
+
 })();
