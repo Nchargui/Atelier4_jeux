@@ -10,7 +10,7 @@ import {
 // Lancement de l'application +++++++++++++++++
 const canvas = document.createElement("canvas");
 const appWidth = 1900;
-const appHeight = 900;
+const appHeight = 800;
 const app = new PIXI.Application({ view: canvas });
 
 (async () => {
@@ -28,7 +28,7 @@ const app = new PIXI.Application({ view: canvas });
     "img/image.png",
 
   ]);
-
+  //Image du canva (Background)
   const background = Sprite.from("img/1.png");
   const clouds1 = Sprite.from("img/3.png");
   const clouds2 = Sprite.from("img/4.png");
@@ -57,7 +57,7 @@ const app = new PIXI.Application({ view: canvas });
 
 
   // setting des player's position and size
-  player1.position.set(200, 490);
+  player1.position.set(150, 490);
   player1.scale.set(0.5, 0.5)
 
 
@@ -66,8 +66,8 @@ const app = new PIXI.Application({ view: canvas });
 
   ///// GRAVITY //////////////////////////////////////
   var isJumping = false
-  var jumpVelocity = -30;
-  var gravityVelocity = 4;
+  var jumpVelocity = -60;
+  var gravityVelocity = 5;
   var originalPointOfPlayer = player1.y;
   var movingSpriteMesure = 10;
 
@@ -100,18 +100,8 @@ const app = new PIXI.Application({ view: canvas });
         showGameOverScreen();
       }
 
-
-      if (isJumping) {
-        if (keyPressed.ArrowLeft) {
-          player1.x -= 100;
-        }
-      } if (keyPressed.ArrowRight) {
-        player1.x += 100;
-      }
     }
   });
-
-
 
 
   function keyPressed(event) {
