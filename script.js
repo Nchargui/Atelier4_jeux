@@ -18,17 +18,14 @@ const app = new PIXI.Application({ view: canvas });
   app.renderer.resize(appWidth, appHeight);
   document.body.appendChild(app.view);
 
-  // load the sprites  +++++++++++++++++
-
   await Assets.load([
     "img/1.png",
     "img/3.png",
     "img/4.png",
     "img/tiles.png",
     "img/image.png",
-
   ]);
-  //Image du canva (Background)
+
   const background = Sprite.from("img/1.png");
   const clouds1 = Sprite.from("img/3.png");
   const clouds2 = Sprite.from("img/4.png");
@@ -37,10 +34,7 @@ const app = new PIXI.Application({ view: canvas });
 
   player1.interactive = true;
 
-  // give the spirtes their inital placement +++++++++++++++++
-
-
-  background.width = appWidth; //background ======
+  background.width = appWidth;
   background.height = appHeight;
 
   clouds1.width = appWidth;
@@ -49,32 +43,22 @@ const app = new PIXI.Application({ view: canvas });
   clouds2.width = appWidth;
   clouds2.height = appHeight;
 
-
   tiles.width = appHeight * 3.7;
-  tiles.height = appWidth / 2
+  tiles.height = appWidth / 2;
 
-  //+++++++++++++++++
-
-
-  // setting des player's position and size
   player1.position.set(150, 490);
-  player1.scale.set(0.5, 0.5)
+  player1.scale.set(0.5, 0.5);
 
-
-  //bring up the sprites
   app.stage.addChild(background, clouds1, clouds2, tiles, player1);
 
-  ///// GRAVITY //////////////////////////////////////
-  var isJumping = false
-  var jumpVelocity = -60;
-  var gravityVelocity = 5;
-  var originalPointOfPlayer = player1.y;
-  var movingSpriteMesure = 10;
+  let isJumping = false;
+  let jumpVelocity = -60;
+  let gravityVelocity = 5;
+  let originalPointOfPlayer = player1.y;
+  let movingSpriteMesure = 10;
+  let cloudSpeed = 1; // Vitesse de déplacement des nuages
 
-  // function for the movment of the player
   document.addEventListener('keydown', keyPressed);
-
-
 
   app.ticker.add(() => {
     if (isJumping) {
@@ -84,7 +68,7 @@ const app = new PIXI.Application({ view: canvas });
       if (player1.y >= originalPointOfPlayer) {
         player1.y = originalPointOfPlayer;
         isJumping = false;
-        jumpVelocity = -20
+        jumpVelocity = -20;
       }
     } else {
       const tileMinX = tiles.y;
@@ -92,37 +76,34 @@ const app = new PIXI.Application({ view: canvas });
 
       if (player1.x < tileMinX || player1.x > tileMaxX) {
         player1.y += gravityVelocity * 5;
-
       }
-
 
       if (player1.y > appHeight) {
         showGameOverScreen();
       }
+    }
 
+    // Déplacer les nuages horizontalement
+    clouds1.x -= cloudSpeed;
+    clouds2.x -= cloudSpeed;
+
+    // Réinitialiser la position des nuages lorsqu'ils sortent de l'écran
+    if (clouds1.x <= -clouds1.width) {
+      clouds1.x = appWidth;
+    }
+    if (clouds2.x <= -clouds2.width) {
+      clouds2.x = appWidth;
     }
   });
 
-
   function keyPressed(event) {
+    event.preventDefault();
     if (event.key === "ArrowUp" && !isJumping) {
       isJumping = true;
-
     } else if (event.key === 'ArrowRight') {
       player1.x += movingSpriteMesure;
-
     } else if (event.key === 'ArrowLeft') {
       player1.x -= movingSpriteMesure;
     }
   }
-
-
-
-
-   
-
-
-
-
-
 })();
