@@ -7,7 +7,6 @@ import {
   Point,
 } from "https://cdn.skypack.dev/pixi.js";
 
-// Lancement de l'application +++++++++++++++++
 const canvas = document.createElement("canvas");
 const appWidth = 1900;
 const appHeight = 800;
@@ -84,15 +83,15 @@ const app = new PIXI.Application({ view: canvas });
     }
 
     // Déplacer les nuages horizontalement
-    clouds1.x -= cloudSpeed;
+    clouds1.x += cloudSpeed;
     clouds2.x -= cloudSpeed;
 
     // Réinitialiser la position des nuages lorsqu'ils sortent de l'écran
-    if (clouds1.x <= -clouds1.width) {
-      clouds1.x = appWidth;
+    if (clouds1.x >= appWidth) {
+      clouds1.x = -clouds1.width++;
     }
-    if (clouds2.x <= -clouds2.width) {
-      clouds2.x = appWidth;
+    if (clouds2.x >= appWidth) {
+      clouds2.x = -clouds2.width++;
     }
   });
 
