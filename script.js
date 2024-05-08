@@ -56,6 +56,7 @@ const app = new PIXI.Application({ view: canvas });
   let originalPointOfPlayer = player1.y;
   let movingSpriteMesure = 10;
   let cloudSpeed = 1; // Vitesse de déplacement des nuages
+  let jumpsRemaining = 100;
 
   document.addEventListener('keydown', keyPressed);
 
@@ -94,11 +95,18 @@ const app = new PIXI.Application({ view: canvas });
       clouds2.x = -clouds2.width++;
     }
   });
-
   function keyPressed(event) {
     event.preventDefault();
-    if (event.key === "ArrowUp" && !isJumping) {
-      isJumping = true;
+    if (event.key === "ArrowUp") {
+      if (!isJumping && jumpsRemaining > 0) {
+        isJumping = true;
+        jumpsRemaining--; // Réduire le nombre de sauts restants
+        jumpVelocity = -60; // Réinitialiser la vitesse du saut
+      } else if (double_jump && jumpsRemaining === 0) { // Vérifier si le double saut est activé et aucun saut restant
+        isJumping = true;
+        double_jump = false; // Désactiver le double saut après utilisation
+        jumpVelocity = -60; // Réinitialiser la vitesse du saut
+      }
     } else if (event.key === 'ArrowRight') {
       player1.x += movingSpriteMesure;
     } else if (event.key === 'ArrowLeft') {
