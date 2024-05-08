@@ -51,12 +51,13 @@ const app = new PIXI.Application({ view: canvas });
   app.stage.addChild(background, clouds1, clouds2, tiles, player1);
 
   let isJumping = false;
+  let doubleJumpAvailable = true; // Nouvelle variable pour suivre l'état du double saut
   let jumpVelocity = -60;
   let gravityVelocity = 5;
   let originalPointOfPlayer = player1.y;
   let movingSpriteMesure = 10;
   let cloudSpeed = 1; // Vitesse de déplacement des nuages
-  let jumpsRemaining = 100;
+  let jumpsRemaining = 2; // Limite de sauts, y compris le double saut
 
   document.addEventListener('keydown', keyPressed);
 
@@ -69,6 +70,7 @@ const app = new PIXI.Application({ view: canvas });
         player1.y = originalPointOfPlayer;
         isJumping = false;
         jumpVelocity = -20;
+        doubleJumpAvailable = true; // Réinitialiser la possibilité de double saut
       }
     } else {
       const tileMinX = tiles.y;
@@ -95,17 +97,18 @@ const app = new PIXI.Application({ view: canvas });
       clouds2.x = -clouds2.width++;
     }
   });
+
   function keyPressed(event) {
     event.preventDefault();
     if (event.key === "ArrowUp") {
-      if (!isJumping && jumpsRemaining > 0) {
+      if (!isJumping && (jumpsRemaining > 0 || doubleJumpAvailable)) {
         isJumping = true;
-        jumpsRemaining--; // Réduire le nombre de sauts restants
-        jumpVelocity = -60; // Réinitialiser la vitesse du saut
-      } else if (double_jump && jumpsRemaining === 0) { // Vérifier si le double saut est activé et aucun saut restant
-        isJumping = true;
-        double_jump = false; // Désactiver le double saut après utilisation
-        jumpVelocity = -60; // Réinitialiser la vitesse du saut
+        if (!doubleJumpAvailable) {
+          doubleJumpAvailable = false;
+        } else {
+          jumpsRemaining--; 
+        }
+        jumpVelocity = -60; 
       }
     } else if (event.key === 'ArrowRight') {
       player1.x += movingSpriteMesure;
