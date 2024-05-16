@@ -34,6 +34,19 @@ body {
   animation: movingClouds 20s linear infinite;
   opacity: 0.6; 
 }
+ 
+
+/*
+#palm {
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  height: 75%;
+  background-image: url(img/palm.png);
+}
+
+*/
+
 
 #Grass {
   position: fixed;
@@ -42,18 +55,14 @@ body {
   height: 75%;
   background-image: url(img/Grass.png);
 }
-
-
-
 #Road {
-  
+  position: absolute;
   bottom: 0;
-  width: 50%;
+  width: 100%;
   height: 75%;
-  background-image: url(img/RoadRace.png);
+ background: url(img/RoadRace.png);
+ 
 }
-
-
 
 
 
