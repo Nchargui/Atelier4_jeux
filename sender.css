@@ -1,3 +1,5 @@
+
+
 body {
   position: relative;
   width: 100%;
@@ -51,16 +53,26 @@ body {
 #Grass {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
-  height: 75%;
-  background-image: url(img/Grass.png);
+  height: 75vh;
+  background: url(img/Grass.png) no-repeat;
+  overflow: hidden;
 }
+
+
 #Road {
   position: absolute;
+  bottom: 10%;
+  left: 0;
   bottom: 0;
   width: 100%;
-  height: 75%;
- background: url(img/RoadRace.png);
+  height: 100vh;
+ background: url(img/RoadRace.png) no-repeat;
+ transform: translateY(-90%);
+ transform: translateX(-50%);
+
+
  
 }
 
