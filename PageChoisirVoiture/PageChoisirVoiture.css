@@ -115,14 +115,41 @@ body {
 
 
 
+.car-box {
+    display: flex;
+    justify-content: space-around;
+}
+
 .car-button {
-    background-color: #f2f2f2;
+    background-color: transparent;
     border: 3px solid #b991ec;
     color: #6448a7;
     font-family: vaporwave;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.car-button img.car-image {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    animation: rotate-car 5s linear infinite;
+    transform-style: preserve-3d;
+}
+
+@keyframes rotate-car {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
 }
 
 .car-button:hover {
