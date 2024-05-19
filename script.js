@@ -52,6 +52,16 @@ window.addEventListener('gamepaddisconnected', (event) =>{ //si la manette est d
 let backgroundSky =  new Image();
 backgroundSky.src  = "img/1.png";  // on défine le background de notre jeux (le ciel)
 
+let Floor =  new Image();
+Floor.src  = "img/FloorRace.png";  
+
+let Road =  new Image();
+Road.src  = "img/MainRoad.png";  
+
+let Cloud1 =  new Image();
+Cloud1.src  = "img/cloud1.png"; 
+
+
 let carPlayer = new Image();  // création de la voiture
 carPlayer.src = "img/Car.png";  // on va charger la voiture dans le jeux
 ///////////////////////////////////////
@@ -68,6 +78,20 @@ gameLoop()
 
 function clearScreen(){
     context.drawImage(backgroundSky, 0, 0, canvas.width, canvas.height);
+}
+
+function DrawCloud1(){
+    context.drawImage(Cloud1, 0, 0, canvas.width, canvas.height / 1.7);
+}
+
+
+function DrawFloor(){
+    context.drawImage(Floor, 0, 0, canvas.width, canvas.height);
+}
+
+
+function DrawRoad(){
+    context.drawImage(Road, 0, 0, canvas.width , canvas.height);
 }
 
 
@@ -130,6 +154,9 @@ function updateMovesCar(){
 function gameLoop(){
     console.log("la boucle marche !")
     clearScreen();
+    DrawCloud1()
+    DrawFloor();
+    DrawRoad()
     drawCar();
     controllerCar();
     updateMovesCar();
