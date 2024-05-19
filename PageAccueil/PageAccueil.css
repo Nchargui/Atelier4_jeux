@@ -151,6 +151,32 @@ body {
     background-position: right;
 }
 
+.language-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -210px; 
+    margin-bottom: 210px;
+}
+
+.language-button {
+    background-color: #f2f2f2;
+    border: 3px solid #b991ec;
+    color: #6448a7;
+    font-family: vaporwave;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.language-button:hover {
+    background-color: #e0e0e0;
+}
+
+.language-button:active {
+    transform: scale(0.95);
+}
+
+
 .buttonHowToPlay {
     position: fixed;
     bottom: 10px; 
@@ -163,7 +189,6 @@ body {
     margin: 25px;
     margin-left: 250px;
     font-size: 20px;
-    transition: transform 0.1s ease-in-out;
 }
 
 .buttonHowToPlay:hover {
