@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="PageAccueil.css" />
-    
+
     <title>OutRun</title>
 </head>
 
@@ -26,26 +26,25 @@
         <span>
             <h2>Nitro</h2>
         </span>
-        <button class="buttonStart" id="pressStartButton">
+        <button class="buttonStart" data-translate="pressStartButton" id="pressStartButton">
             Start
-
         </button>
 
         <div class="language-box">
-            <button class="language-button">EN</button>
-            <button class="language-button">FR</button>
-            <button class="language-button">ES</button>
+            <button class="language-button" data-lang="en">EN</button>
+            <button class="language-button" data-lang="fr">FR</button>
+            <button class="language-button" data-lang="es">ES</button>
         </div>
 
 
-        <button class="buttonHowToPlay" id="pressHowToPlay">
+        <button class="buttonHowToPlay" data-translate="pressHowToPlay" id="pressHowToPlay">
             How to play
         </button>
 
-        <button class="audio" id="muteButton">Mute</button>
+        <button class="audio" id="muteButton" data-translate="muteButton">Mute</button>
         <audio id="myAudio" src="audio/music.mp3.mp3" autoplay loop></audio>
 
-
+    </div>
     </div>
 
     <script src="PageAccueil.js"></script>
