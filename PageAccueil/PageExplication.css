@@ -175,7 +175,7 @@ body {
 }
 
 
-.buttonHowToPlay {
+.buttonBack {
     position: fixed;
     bottom: 10px; 
     left: 10px; 
@@ -183,17 +183,17 @@ body {
     border: 5px solid #b991ec;
     color: #6448a7;
     font-family: vaporwave;
-    padding: 10px 5px;
+    padding: 10px 25px;
     margin: 25px;
     margin-left: 250px;
     font-size: 20px;
 }
 
-.buttonHowToPlay:hover {
+.buttonBack:hover {
     background-color: #e0e0e0;
 }
 
-.buttonHowToPlay:active {
+.buttonBack:active {
     transform: scale(0.95);
 }
 
