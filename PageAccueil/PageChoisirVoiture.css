@@ -222,5 +222,32 @@ body {
     transform: scale(0.95);
 }
 
-/* Inclusion de la police rétro */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+#muteButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.audio {
+    position: fixed;
+    bottom: 10px; 
+    right: 175px; 
+    background-color: #f2f2f2;
+    border: 5px solid #b991ec;
+    color: #6448a7;
+    font-family: vaporwave;
+    padding: 10px 5px;
+    margin: 25px;
+    margin-left: 250px;
+    font-size: 20px;
+}
+
+.audio:hover {
+    background-color: #e0e0e0;
+}
+
+.audio:active {
+    transform: scale(0.95);
+}
+

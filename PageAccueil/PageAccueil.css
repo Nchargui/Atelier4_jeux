@@ -11,6 +11,7 @@ body {
 
 }
 
+
 /* Taille du carré */
 .AccueilBackground {
     height: 70%;
@@ -194,6 +195,34 @@ body {
 }
 
 .buttonHowToPlay:active {
+    transform: scale(0.95);
+}
+
+#muteButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.audio {
+    position: fixed;
+    bottom: 10px; 
+    right: 175px; 
+    background-color: #f2f2f2;
+    border: 5px solid #b991ec;
+    color: #6448a7;
+    font-family: vaporwave;
+    padding: 10px 5px;
+    margin: 25px;
+    margin-left: 250px;
+    font-size: 20px;
+}
+
+.audio:hover {
+    background-color: #e0e0e0;
+}
+
+.audio:active {
     transform: scale(0.95);
 }
 

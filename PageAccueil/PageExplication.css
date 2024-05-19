@@ -36,92 +36,6 @@ body {
     align-items: center;
 }
 
-#aestheticImage h1 {
-    font-size: 70px; /* Taille du texte */
-    background: linear-gradient( #f15ba6, #bc9bff, #e036c4); 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-}
-
-
-#aestheticImage h2 {
-    font-size: 50px;
-    background: linear-gradient( #e036c4, #e036c4, #e036c4); 
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent; 
-    margin: -80px;
-    font-style: italic; 
-}
-
-
-.buttonStart {
-    background-color: #f2f2f2;
-    border: 5px solid #b991ec;
-    color: #6448a7;
-    font-family:  vaporwave ;
-    padding: 10px 40px;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 2px 2px 0 #000;
-    transition: transform 0.1s ease-in-out;
-    margin-bottom: 230px;
-    animation: flash 0.9s infinite;
-
-}
-
-@keyframes flash {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0;
-    }
-}
-
-#pressStartButton {
-    margin-top: 30px;
-}
-
-.buttonStart:hover {
-    background-color: #e0e0e0;
-}
-
-.buttonStart:active {
-    transform: scale(0.95);
-}
-
-@media (max-width: 1200px) {
-    #aestheticImage {
-        margin-left: 200px;
-    }
-}
-
-@media (max-width: 992px) {
-    #aestheticImage {
-        margin-left: 150px;
-    }
-}
-
-@media (max-width: 768px) {
-    #aestheticImage {
-        margin-left: 100px;
-    }
-}
-
-@media (max-width: 576px) {
-    #aestheticImage {
-        margin-left: 50px;
-    }
-}
-
-@media (max-width: 360px) {
-    #aestheticImage {
-        margin-left: 20px;
-    }
-}
 
 #leftPalm {
     position: absolute;
@@ -151,30 +65,6 @@ body {
     background-position: right;
 }
 
-.language-box {
-    margin-top: -210px; 
-    margin-bottom: 210px;
-}
-
-.language-button {
-    background-color: #f2f2f2;
-    border: 3px solid #b991ec;
-    color: #6448a7;
-    font-family: vaporwave;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.language-button:hover {
-    background-color: #e0e0e0;
-}
-
-.language-button:active {
-    transform: scale(0.95);
-}
-
-
 .buttonBack {
     position: fixed;
     bottom: 10px; 
@@ -194,6 +84,34 @@ body {
 }
 
 .buttonBack:active {
+    transform: scale(0.95);
+}
+
+#muteButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.audio {
+    position: fixed;
+    bottom: 10px; 
+    right: 175px; 
+    background-color: #f2f2f2;
+    border: 5px solid #b991ec;
+    color: #6448a7;
+    font-family: vaporwave;
+    padding: 10px 5px;
+    margin: 25px;
+    margin-left: 250px;
+    font-size: 20px;
+}
+
+.audio:hover {
+    background-color: #e0e0e0;
+}
+
+.audio:active {
     transform: scale(0.95);
 }
 
