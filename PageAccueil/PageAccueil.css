@@ -28,44 +28,66 @@ body {
     margin-top: 90px;
     margin-left: 260px;
     background-color: rgb(203, 180, 240);
-    color: #9879e0;
-    font-family: 'Press Start 2P', cursive;
+    font-family: vaporwave;
     padding: 20px;
     text-align: center;
     display: flex;
-    /* Utilisation de flexbox */
     flex-direction: column;
-    /* Alignement vertical */
     align-items: center;
-    /* Alignement des éléments centré */
 }
 
 #aestheticImage h1 {
-    font-size: 40px;
-    text-shadow: 2px 2px 0 #000;
-    margin-bottom: -5px;
-    /* Ajustement pour l'espacement vers le bas */
+    font-size: 70px; /* Taille du texte */
+    background: linear-gradient( #f15ba6, #bc9bff, #e036c4); /* Dégradé linéaire */
+    -webkit-background-clip: text; /* Pour la prise en charge des navigateurs WebKit */
+    -webkit-text-fill-color: transparent; /* Pour la prise en charge des navigateurs WebKit */
+    animation: gradientAnimation 15s infinite; /* Animation du dégradé */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 #aestheticImage h2 {
-    font-size: 30px;
-    text-shadow: 2px 2px 0 #000;
-    margin-bottom: -20px;
-    /* Ajustement pour l'espacement vers le bas */
+    font-size: 50px;
+    background: linear-gradient( #e036c4, #e036c4, #e036c4); /* Dégradé linéaire */
+    -webkit-background-clip: text; /* Pour la prise en charge des navigateurs WebKit */
+    -webkit-text-fill-color: transparent; /* Pour la prise en charge des navigateurs WebKit */
+    animation: gradientAnimation 15s infinite; /* Animation du dégradé */
+    margin: -80px;
+    font-style: italic; 
+}
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .buttonStart {
     background-color: #f2f2f2;
     border: 5px solid #b991ec;
     color: #6448a7;
-    font-family: 'Press Start 2P', cursive;
+    font-family:  vaporwave ;
     padding: 10px 40px;
     font-size: 20px;
     cursor: pointer;
     box-shadow: 2px 2px 0 #000;
     transition: transform 0.1s ease-in-out;
     margin-bottom: 230px;
-    /* Ajout d'une marge supérieure pour l'espacement */
     animation: flash 0.9s infinite;
 
 }
@@ -84,22 +106,16 @@ body {
 
 #pressStartButton {
     margin-top: 30px;
-    /* Ajout d'une marge supérieure pour l'espacement */
 }
 
-/* Effet au survol */
 .buttonStart:hover {
     background-color: #e0e0e0;
-    /* Changement de couleur au survol */
 }
 
-/* Effet au clic */
 .buttonStart:active {
     transform: scale(0.95);
-    /* Légère réduction de la taille au clic */
 }
 
-/* Media queries pour rendre le style responsive */
 @media (max-width: 1200px) {
     #aestheticImage {
         margin-left: 200px;
