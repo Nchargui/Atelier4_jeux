@@ -201,14 +201,13 @@ body {
 #muteButton {
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
 }
-  
+
+
 .audio {
     position: fixed;
     bottom: 10px; 
     right: 175px; 
-    background-color: #f2f2f2;
     border: 5px solid #b991ec;
     color: #6448a7;
     font-family: vaporwave;

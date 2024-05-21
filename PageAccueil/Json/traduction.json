@@ -1,18 +1,18 @@
 {
     "en": {
       "pressHowToPlay": "How to play",
-      "muteButton": "Mute",
-      "pressStartButton": "Start"
+      "pressStartButton": "Start",
+      "pressStartRacing": "Let's race"
     },
     "fr": {
       "pressHowToPlay": "Comment jouer",
-      "muteButton": "Sourdine",
-      "pressStartButton": "Commencer"
+      "pressStartButton": "Commencer",
+      "pressStartRacing": "Faisons la course"
     },
     "es": {
       "pressHowToPlay": "Cómo jugar",
-      "muteButton": "Mudo",
-      "pressStartButton": "Empezar"
+      "pressStartButton": "Empezar",
+      "pressStartRacing": "Vamos a correr"
     }
   }
   
