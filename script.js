@@ -17,6 +17,9 @@ let VibrateController = false;
 let GoingUp = false;
 ///////////////////////////////////////
 
+let cloud1X = 0;
+let cloud1Velocity = 1;
+
 
 function setUpRacingGame(){  // on veut que le jeux, fit les proportions de l'écrans
     canvas.width = window.innerWidth;
@@ -56,7 +59,7 @@ let Floor =  new Image();
 Floor.src  = "img/FloorRace.png";  
 
 let Road =  new Image();
-Road.src  = "img/MainRoad.png";  
+Road.src  = "img/road.gif";  
 
 let Cloud1 =  new Image();
 Cloud1.src  = "img/cloud1.png"; 
@@ -81,7 +84,17 @@ function clearScreen(){
 }
 
 function DrawCloud1(){
-    context.drawImage(Cloud1, 0, 0, canvas.width, canvas.height / 1.7);
+
+    cloud1X -= cloud1Velocity
+
+    if(cloud1X <= -canvas.width){
+        cloud1X = 0;
+    }
+
+
+    context.drawImage(Cloud1, cloud1X, 0, canvas.width, canvas.height / 1.7);
+    context.drawImage(Cloud1, cloud1X + canvas.width, 0, canvas.width, canvas.height / 1.7);
+
 }
 
 
@@ -91,6 +104,7 @@ function DrawFloor(){
 
 
 function DrawRoad(){
+    
     context.drawImage(Road, 0, 0, canvas.width , canvas.height);
 }
 
@@ -120,13 +134,8 @@ function controllerCar(){
                 weakMagnitude: 0.5,
                 strongMagnitude: 0.5,
             });
-
         }
-
-
-        
     }   
-
 }
 
 function moveCar(){
@@ -156,7 +165,7 @@ function gameLoop(){
     clearScreen();
     DrawCloud1()
     DrawFloor();
-    DrawRoad()
+    DrawRoad();
     drawCar();
     controllerCar();
     updateMovesCar();
