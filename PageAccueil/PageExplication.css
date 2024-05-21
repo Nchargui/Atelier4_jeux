@@ -35,6 +35,23 @@ body {
     flex-direction: column;
     align-items: center;
 }
+#aestheticImage h1 {
+    font-size: 70px; /* Taille du texte */
+    background: linear-gradient( #f15ba6, #bc9bff, #e036c4); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+
+#aestheticImage h2 {
+    font-size: 50px;
+    background: linear-gradient( #e036c4, #e036c4, #e036c4); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    margin: -80px;
+    font-style: italic; 
+}
+
 
 
 #leftPalm {
