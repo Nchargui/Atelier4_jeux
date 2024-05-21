@@ -1,0 +1,18 @@
+{
+    "en": {
+      "pressHowToPlay": "How to play",
+      "muteButton": "Mute",
+      "pressStartButton": "Start"
+    },
+    "fr": {
+      "pressHowToPlay": "Comment jouer",
+      "muteButton": "Sourdine",
+      "pressStartButton": "Commencer"
+    },
+    "es": {
+      "pressHowToPlay": "Cómo jugar",
+      "muteButton": "Mudo",
+      "pressStartButton": "Empezar"
+    }
+  }
+  

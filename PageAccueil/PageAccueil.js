@@ -30,36 +30,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 //traduction
-const translations ={
-    en: {
-        pressHowToPlay: "How to play",
-        muteButton : "Mute",
-        pressStartButton: "Start"
-    },
-    fr: {
-        pressHowToPlay: "Comment jouer",
-        muteButton : "Sourdine",
-        pressStartButton: "Commencer"
-
-    },
-    es: {
-        pressHowToPlay: "Cómo jugar",
-        muteButton : "Mudo",
-        pressStartButton: "Empezar"
-    }
-};
-function changeLanguage(lang) {
-    const elements = document.querySelectorAll('[data-translate]');
-    elements.forEach(element => {
+fetch('Json/traduction.json')
+  .then(response => response.json())
+  .then(translations => {
+    function changeLanguage(lang) {
+      const elements = document.querySelectorAll('[data-translate]');
+      elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         element.textContent = translations[lang][key];
-    });
-}
+      });
+      sessionStorage.setItem('language', lang);
 
-const languageButtons = document.querySelectorAll('.language-button');
-languageButtons.forEach(button => {
-    button.addEventListener('click', () => {
+    }
+
+    const languageButtons = document.querySelectorAll('.language-button');
+    languageButtons.forEach(button => {
+      button.addEventListener('click', () => {
         const lang = button.getAttribute('data-lang');
         changeLanguage(lang);
+      });
     });
-});
+  })
+  .catch(error => console.error('Error loading translations:', error));
