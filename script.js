@@ -2,7 +2,7 @@ const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
 
 /// inisialiser la taille des assets et jeux /////////////
-let carWidthAndHeight = 0; 
+let carWidthAndHeight = 0;
 let carX = 0;
 let carY = 0;
 let velocity = 0
@@ -21,14 +21,14 @@ let cloud1X = 0;
 let cloud1Velocity = 1;
 
 
-function setUpRacingGame(){  // on veut que le jeux, fit les proportions de l'écrans
+function setUpRacingGame() {  // on veut que le jeux, fit les proportions de l'écrans
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     carWidthAndHeight = canvas.width * 0.1;
     velocity = canvas.width * 0.01;
 
-    carX = (canvas.width - carWidthAndHeight)/2;
-    carY = (canvas.height - carWidthAndHeight)/2;
+    carX = (canvas.width - carWidthAndHeight) / 2;
+    carY = (canvas.height - carWidthAndHeight) / 2;
 
 }
 
@@ -37,57 +37,57 @@ window.addEventListener('resize', setUpRacingGame);  //screen adapté à la fen�
 
 
 /// Utilisation de Gamepad API///////////////////////////////////////////3
-window.addEventListener('gamepadconnected', (event) =>{  // si la manette est connecter
+window.addEventListener('gamepadconnected', (event) => {  // si la manette est connecter
     controllerIndex = event.gamepad.index;
     console.log("La manette est connecté")
-}); 
+});
 
-window.addEventListener('gamepaddisconnected', (event) =>{ //si la manette est deconnecter
+window.addEventListener('gamepaddisconnected', (event) => { //si la manette est deconnecter
     console.log("La manette est deconnecté");
     controllerIndex = null;
-    
 
-}); 
+
+});
 
 ///////////////////////////////////////////3
 
 // Inisitaliser les assets du jeux///////////////////////////////////////
-let backgroundSky =  new Image();
-backgroundSky.src  = "img/1.png";  // on défine le background de notre jeux (le ciel)
+let backgroundSky = new Image();
+backgroundSky.src = "img/1.png";  // on défine le background de notre jeux (le ciel)
 
-let Floor =  new Image();
-Floor.src  = "img/FloorRace.png";  
+let Floor = new Image();
+Floor.src = "img/FloorRace.png";
 
-let Road =  new Image();
-Road.src  = "img/road.gif";  
 
-let Cloud1 =  new Image();
-Cloud1.src  = "img/cloud1.png"; 
+let Cloud1 = new Image();
+Cloud1.src = "img/cloud1.png";
 
 
 let carPlayer = new Image();  // création de la voiture
 carPlayer.src = "img/Car.png";  // on va charger la voiture dans le jeux
+
+
 ///////////////////////////////////////
 
 
 
 ///// Load les assets /////////////////////////////////////
 
-backgroundSky.onload = function(){
-setUpRacingGame();
-gameLoop()
+backgroundSky.onload = function () {
+    setUpRacingGame();
+    gameLoop()
 }
 
 
-function clearScreen(){
+function clearScreen() {
     context.drawImage(backgroundSky, 0, 0, canvas.width, canvas.height);
 }
 
-function DrawCloud1(){
+function DrawCloud1() {
 
     cloud1X -= cloud1Velocity
 
-    if(cloud1X <= -canvas.width){
+    if (cloud1X <= -canvas.width) {
         cloud1X = 0;
     }
 
@@ -98,27 +98,46 @@ function DrawCloud1(){
 }
 
 
-function DrawFloor(){
+function DrawFloor() {
     context.drawImage(Floor, 0, 0, canvas.width, canvas.height);
 }
 
 
-function DrawRoad(){
-    
-    context.drawImage(Road, 0, 0, canvas.width , canvas.height);
-}
-
-
-function drawCar(){
+function drawCar() {
     context.drawImage(carPlayer, carX, carY * 1.5, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
 }
+
+
+
+let RoadFrames = [];
+let currentFrame = 0;
+function LoadFloorGif() {
+
+  
+    for (let i = 0; i <= 25; i++) {
+        const filename = `img/RoadImgs/frame_${i < 10 ? '0' : ''}${i}_delay-0.04s.gif`;
+
+        const RoadGif = new Image();
+        RoadGif.src = filename;
+        RoadFrames.push(RoadGif);
+        }   
+    }
+
+
+function drawRoadFrame(){
+    context.drawImage(RoadFrames[currentFrame], 0, 0, canvas.width, canvas.height);
+
+    currentFrame = (currentFrame + 1) % RoadFrames.length;
+    currentFrame++;
+}   
+
 
 ///////////////////////////////////////
 
 
 ////Faire bouger la voiture et autre controle//////////////////////////////////
-function controllerCar(){
-    if(controllerIndex !== null){
+function controllerCar() {
+    if (controllerIndex !== null) {
         const gamepad = navigator.getGamepads()[controllerIndex];
         const buttons = gamepad.buttons;
         GoingLeft = buttons[14].pressed;
@@ -127,7 +146,7 @@ function controllerCar(){
         GoingUp = buttons[12].pressed;
 
 
-        if(VibrateController){
+        if (VibrateController) {
             gamepad.vibrationActuator.playEffect("dual-rumble", {  // partie prit de chatGpt pour faire vibrer la manette 
                 startDelay: 0,
                 duration: 100,
@@ -135,37 +154,38 @@ function controllerCar(){
                 strongMagnitude: 0.5,
             });
         }
-    }   
+    }
 }
 
-function moveCar(){
-    if(GoingLeft){
+function moveCar() {
+    if (GoingLeft) {
         carX -= velocity
     }
 
-    if(GoingRight){
+    if (GoingRight) {
         carX += velocity
     }
 
-    
-    if(GoingUp){
+
+    if (GoingUp) {
         carY -= velocity;
     }
 
 }
 
-function updateMovesCar(){
+function updateMovesCar() {
     moveCar();
 }
 
 
 /// loop pour le jeux
-function gameLoop(){
+function gameLoop() {
     console.log("la boucle marche !")
     clearScreen();
     DrawCloud1()
     DrawFloor();
-    DrawRoad();
+    LoadFloorGif();
+    drawRoadFrame()
     drawCar();
     controllerCar();
     updateMovesCar();
