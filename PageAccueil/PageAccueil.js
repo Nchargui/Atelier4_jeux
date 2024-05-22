@@ -86,21 +86,28 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Manette déconnectée");
     });
 
+//Ajout d'un delai puisque la navigation entre boutons etait trop rapide
+    let lastNavigationTime = 0;
+    const navigationDelay = 200; 
+
     function handleGamepadInput() {
         if (controllerIndex !== null) {
             var gamepad = navigator.getGamepads()[controllerIndex];
             if (gamepad.buttons.length > 0) {
-                var buttonUp = gamepad.buttons[12]; // Index du bouton "haut"
-                var buttonDown = gamepad.buttons[13]; // Index du bouton "bas"
-                var buttonLeft = gamepad.buttons[14]; // Index du bouton "gauche"
-                var buttonRight = gamepad.buttons[15]; // Index du bouton "droite"
-                var buttonX = gamepad.buttons[0]; // Index du bouton "X"
+                var buttonUp = gamepad.buttons[12]; 
+                var buttonDown = gamepad.buttons[13]; 
+                var buttonX = gamepad.buttons[0]; 
+                var currentTime = Date.now();
 
-                // Navigation avec les boutons de direction
-                if (buttonUp.pressed) {
-                    selectedButtonIndex = (selectedButtonIndex - 1 + buttons.length) % buttons.length;
-                } else if (buttonDown.pressed) {
-                    selectedButtonIndex = (selectedButtonIndex + 1) % buttons.length;
+                // Navigation entre boutons
+                if (currentTime - lastNavigationTime > navigationDelay) {
+                    if (buttonUp.pressed) {
+                        selectedButtonIndex = (selectedButtonIndex - 1 + buttons.length) % buttons.length;
+                        lastNavigationTime = currentTime;
+                    } else if (buttonDown.pressed) {
+                        selectedButtonIndex = (selectedButtonIndex + 1) % buttons.length;
+                        lastNavigationTime = currentTime;
+                    }
                 }
 
                 // Action "Clic" avec le bouton X
