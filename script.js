@@ -7,18 +7,7 @@ let carX = 0;
 let carY = 0;
 let velocity = 0
 
-var enemyCars = [];
-var enemyCarTimer = game.time.events.loop(2000, function() {
-  // Generate a random position and speed for the enemy car
-  var x = game.rnd.integerInRange(0, game.world.width);
-  var speed = game.rnd.integerInRange(100, 300);
-  
-  // Create a new enemy car
-  var enemyCar = new EnemyCar(x, game.world.height - 100, speed);
-  
-  // Add the enemy car to the array
-  enemyCars.push(enemyCar);
-});
+
 
 
 
@@ -37,9 +26,14 @@ let cloud1X = 0;
 let cloud1Velocity = 1;
 
 
-let frameSeconde = 30;
-let intervalFrame = 20;
+let frameSeconde = 50;
+let intervalFrame = 100;
 let lastFrameTime = 0;
+
+
+let frameSecondeCar = 500;
+let intervalFrameCar = 100;
+
 ///////////////////////////////////////
 
 
@@ -51,33 +45,9 @@ function setUpRacingGame() {  // on veut que le jeux, fit les proportions de l'�
 
     carX = (canvas.width - carWidthAndHeight) / 2;
     carY = (canvas.height - carWidthAndHeight) / 2;
-
 }
 
-function EnemyCar(x, y, speed) {
-    this.x = x;
-    this.y = y;
-    this.speed = speed;
-    this.sprite = game.add.sprite(x, y, 'enemy-car');
-    game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
-    this.sprite.body.collideWorldBounds = true;
-  }
-  
-  EnemyCar.prototype.update = function() {
-    // Move the enemy car to the left
-    this.x -= this.speed;
-    
-    // Check if the enemy car has gone off-screen
-    if (this.x < 0 - this.sprite.width) {
-      // If so, reset its position to the right side of the screen
-      this.x = game.world.width + this.sprite.width;
-    }
-    
-    // Check for collisions with the player car
-    game.physics.arcade.collide(this.sprite, playerCar.sprite, function() {
-      // Handle collision here
-    });
-  }
+
     
 ///////////////////////////////////////////3
 window.addEventListener('resize', setUpRacingGame);  //screen adapté à la fenêtre
@@ -113,9 +83,8 @@ Cloud1.src = "img/cloud1.png";
 let carPlayer = new Image();  // création de la voiture
 carPlayer.src = "img/Car.png";  // on va charger la voiture dans le jeux
 
-const carEnemy = new Image();  // création de la voiture
-carEnemy.src = "img/enemy.png";
-
+let carEnemy = new Image();  // création de la voiture
+carEnemy.src = "img/enemy.png";  // on va charger la voiture dans le jeux
 
 ///////////////////////////////////////
 
@@ -160,7 +129,6 @@ function drawCar() {  // load la voiture du joueur
 
 
 
-
 /// liste pour rentrer toutes les frames
 let RoadFrames = [];
 let currentFrame = 0;
@@ -181,8 +149,8 @@ function drawRoadFrame(){
     context.drawImage(RoadFrames[currentFrame], 0, 0, canvas.width, canvas.height);
 
     currentFrame++;
-}   
-
+}  
+/////////////////////////////////////
 
 ///////////////////////////////////////
 
@@ -226,18 +194,9 @@ function moveCar() {
 }
 
 
-function update() {
-    // Update the player car
-    playerCar.update();
-  
-    // Loop through the array of enemy cars
-    for (var i = 0; i < enemyCars.length; i++) {
-      var enemyCar = enemyCars[i];
-      
-      // Update the enemy car
-      enemyCar.update();
-    }
-  }
+function updateMovesCar(){
+    moveCar();
+}
 
 
 
@@ -245,6 +204,10 @@ function update() {
 
 
 /// loop pour le jeux
+let lastCarDrawnTime = 0;
+const carDrawInterval = 4000; // Adjust this value to control the interval between enemy car appearances
+ 
+
 function gameLoop(timestamp) {  // controller la vitesse
     console.log("la boucle du jeu marche !")
 
@@ -263,10 +226,13 @@ function gameLoop(timestamp) {  // controller la vitesse
     controllerCar();
     updateMovesCar();
 
-    requestAnimationFrame(gameLoop);
 
+       
+
+    requestAnimationFrame(gameLoop);
 }
 
+gameLoop();
 
 
 
