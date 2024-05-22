@@ -1,43 +1,26 @@
 const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
 
-/// inisialiser la taille des assets et jeux /////////////
 let carWidthAndHeight = 0;
 let carX = 0;
 let carY = 0;
-let velocity = 0
+let velocity = 0;
 
-
-
-
-
-///////////////////////////////////////
-
-
-///Les controles///////////////////////
 let controllerIndex = null;
 let GoingLeft = false;
 let GoingRight = false;
 let VibrateController = false;
 let GoingUp = false;
-///////////////////////////////////////
+let GoingDown = false;
 
 let cloud1X = 0;
 let cloud1Velocity = 1;
-
 
 let frameSeconde = 50;
 let intervalFrame = 100;
 let lastFrameTime = 0;
 
-
-let frameSecondeCar = 500;
-let intervalFrameCar = 100;
-
-///////////////////////////////////////
-
-
-function setUpRacingGame() {  // on veut que le jeux, fit les proportions de l'écrans
+function setUpRacingGame() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     carWidthAndHeight = canvas.width * 0.1;
@@ -47,115 +30,76 @@ function setUpRacingGame() {  // on veut que le jeux, fit les proportions de l'�
     carY = (canvas.height - carWidthAndHeight) / 2;
 }
 
+window.addEventListener('resize', setUpRacingGame);
 
-    
-///////////////////////////////////////////3
-window.addEventListener('resize', setUpRacingGame);  //screen adapté à la fenêtre
-
-
-/// Utilisation de Gamepad API///////////////////////////////////////////3
-window.addEventListener('gamepadconnected', (event) => {  // si la manette est connecter
+window.addEventListener('gamepadconnected', (event) => {
     controllerIndex = event.gamepad.index;
-    console.log("La manette est connecté")
+    console.log("La manette est connectée")
 });
 
-window.addEventListener('gamepaddisconnected', (event) => { //si la manette est deconnecter
-    console.log("La manette est deconnecté");
+window.addEventListener('gamepaddisconnected', (event) => {
+    console.log("La manette est déconnectée");
     controllerIndex = null;
-
-
 });
 
-///////////////////////////////////////////3
-
-// Inisitaliser les assets du jeux///////////////////////////////////////
 let backgroundSky = new Image();
-backgroundSky.src = "img/1.png";  // on défine le background de notre jeux (le ciel)
+backgroundSky.src = "img/1.png";
 
 let Floor = new Image();
 Floor.src = "img/Desert.png";
 
-
 let Cloud1 = new Image();
 Cloud1.src = "img/cloud1.png";
 
+let carPlayer = new Image();
+carPlayer.src = "img/Car.png";
 
-let carPlayer = new Image();  // création de la voiture
-carPlayer.src = "img/Car.png";  // on va charger la voiture dans le jeux
-
-let carEnemy = new Image();  // création de la voiture
-carEnemy.src = "img/enemy.png";  // on va charger la voiture dans le jeux
-
-///////////////////////////////////////
-
-
-
-///// Load les assets /////////////////////////////////////
+let carEnemy = new Image();
+carEnemy.src = "img/enemy.png";
 
 backgroundSky.onload = function () {
     setUpRacingGame();
-    gameLoop()
+    gameLoop();
 }
 
-
-function clearScreen() { // load les nuages + l'animation
+function clearScreen() {
     context.drawImage(backgroundSky, 0, 0, canvas.width, canvas.height);
 }
 
 function DrawCloud1() {
-
-    cloud1X -= cloud1Velocity
-
+    cloud1X -= cloud1Velocity;
     if (cloud1X <= -canvas.width) {
         cloud1X = 0;
     }
-
-
     context.drawImage(Cloud1, cloud1X, 0, canvas.width, canvas.height / 1.7);
     context.drawImage(Cloud1, cloud1X + canvas.width, 0, canvas.width, canvas.height / 1.7);
-
 }
 
-
-function DrawFloor() {  // load le deserts (background)
+function DrawFloor() {
     context.drawImage(Floor, 0, -90, canvas.width, canvas.height);
 }
 
-
-function drawCar() {  // load la voiture du joueur
+function drawCar() {
     context.drawImage(carPlayer, carX, carY * 1.5, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
 }
 
-
-
-
-/// liste pour rentrer toutes les frames
 let RoadFrames = [];
 let currentFrame = 0;
-function LoadFloorGif() {
 
-  
+function LoadFloorGif() {
     for (let i = 0; i <= 24; i++) {
         const filename = `img/RoadImgs/frame_${i < 10 ? '0' : ''}${i}_delay-0.04s.gif`;
-
         const RoadGif = new Image();
         RoadGif.src = filename;
         RoadFrames.push(RoadGif);
-        }   
     }
+}
 
-
-function drawRoadFrame(){
+function drawRoadFrame() {
     context.drawImage(RoadFrames[currentFrame], 0, 0, canvas.width, canvas.height);
-
     currentFrame++;
-}  
-/////////////////////////////////////
+}
 
-///////////////////////////////////////
-
-
-////Faire bouger la voiture et autre controle//////////////////////////////////
 function controllerCar() {
     if (controllerIndex !== null) {
         const gamepad = navigator.getGamepads()[controllerIndex];
@@ -164,10 +108,9 @@ function controllerCar() {
         GoingRight = buttons[15].pressed;
         VibrateController = buttons[13].pressed;
         GoingUp = buttons[12].pressed;
-
-
+        GoingDown = buttons[6].pressed;
         if (VibrateController) {
-            gamepad.vibrationActuator.playEffect("dual-rumble", {  // partie prit de chatGpt pour faire vibrer la manette 
+            gamepad.vibrationActuator.playEffect("dual-rumble", {
                 startDelay: 0,
                 duration: 100,
                 weakMagnitude: 0.5,
@@ -176,49 +119,35 @@ function controllerCar() {
         }
     }
 }
-
 function moveCar() {
-    if (GoingLeft) {
-        carX -= velocity
+    if (GoingLeft && carX > 0) {
+        carX -= velocity;
     }
-
-    if (GoingRight) {
-        carX += velocity
+    if (GoingRight && carX < canvas.width - carWidthAndHeight * 1.5) {
+        carX += velocity;
     }
-
-
-    if (GoingUp) {
-        carY -= velocity;
+    if (GoingUp && carY > canvas.height * 0.3) {
+        carY -= velocity; 
     }
-
+    if (GoingDown && carY < canvas.height - carWidthAndHeight * 1.5) {
+        carY += velocity;
+    }
 }
 
 
-function updateMovesCar(){
+function updateMovesCar() {
     moveCar();
 }
 
-
-
-///////////////////////////////////////
-
-
-/// loop pour le jeux
-let lastCarDrawnTime = 0;
-const carDrawInterval = 4000; // Adjust this value to control the interval between enemy car appearances
- 
-
-function gameLoop(timestamp) {  // controller la vitesse
-    console.log("la boucle du jeu marche !")
-
-    if(timestamp - lastFrameTime < intervalFrame){
+function gameLoop(timestamp) {
+    if (timestamp - lastFrameTime < intervalFrame) {
         requestAnimationFrame(gameLoop);
         return;
     }
     lastFrameTime = timestamp;
-    
+
     clearScreen();
-    DrawCloud1()
+    DrawCloud1();
     DrawFloor();
     LoadFloorGif();
     drawRoadFrame();
@@ -226,17 +155,7 @@ function gameLoop(timestamp) {  // controller la vitesse
     controllerCar();
     updateMovesCar();
 
-
-       
-
     requestAnimationFrame(gameLoop);
 }
 
 gameLoop();
-
-
-
-    
-
-
-
