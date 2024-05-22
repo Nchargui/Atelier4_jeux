@@ -7,24 +7,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const audio = document.getElementById('myAudio');
-  if (audio) {
-      audio.play();
+    audio.play();
+  
+    const muteButton = document.getElementById('muteButton');
+    let isMuted = false;
+  
+    function updateMuteButtonIcon() {
+        if (isMuted) {
+            muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else {
+            muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+    }
 
-      const muteButton = document.getElementById('muteButton');
-      let isMuted = false;
+    muteButton.addEventListener('click', () => {
+      if (isMuted) {
+          audio.play();
+      } else {
+          audio.pause();
+      }
+      isMuted = !isMuted;
+      updateMuteButtonIcon();
+  });
 
-      muteButton.addEventListener('click', () => {
-          if (isMuted) {
-              audio.play();
-              muteButton.innerText = 'Mute';
-          } else {
-              audio.pause();
-              muteButton.innerText = 'Unmute';
-          }
-          isMuted = !isMuted;
-      });
-  }
+  updateMuteButtonIcon();
 
+  // Traduction
   fetch('Json/traduction.json')
       .then(response => response.json())
       .then(translations => {
@@ -34,11 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
                   const key = element.getAttribute('data-translate');
                   element.textContent = translations[lang][key];
               });
-          }
+              sessionStorage.setItem('language', lang);
 
-          const savedLanguage = sessionStorage.getItem('language');
-          if (savedLanguage) {
-              changeLanguage(savedLanguage);
+              updateMuteButtonIcon();
           }
 
           const languageButtons = document.querySelectorAll('.language-button');
@@ -46,9 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
               button.addEventListener('click', () => {
                   const lang = button.getAttribute('data-lang');
                   changeLanguage(lang);
-                  sessionStorage.setItem('language', lang); 
               });
           });
+
+          const savedLanguage = sessionStorage.getItem('language');
+          if (savedLanguage) {
+              changeLanguage(savedLanguage);
+          }
       })
       .catch(error => console.error('Error loading translations:', error));
 });

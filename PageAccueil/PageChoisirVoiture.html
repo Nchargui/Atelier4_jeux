@@ -10,6 +10,8 @@
 
 <body>
     <div class="AccueilBackground" id="aestheticImage">
+
+
         <div class="palms" id="palmsImages">
             <div id="leftPalm">
 
@@ -19,10 +21,14 @@
             </div>
         </div>
         <span>
-            <h1>Choose</h1>
+            <div id="pickACar">
+                <h1 data-translate="pickACar">Choose</h1>
+            </div>
         </span>
         <span>
-            <h2>your car</h2>
+            <div id="yourCar">
+                <h2 data-translate="yourCar">your car</h2>
+            </div>
         </span>
 
         <div class="car-box">
@@ -43,14 +49,16 @@
         </button>
 
 
-        <button class="buttonBack" id="pressBack">
+        <button class="buttonBack" id="pressBack" data-translate="pressBack">
             Back
         </button>
-        <button class="audio" id="muteButton" data-translate="muteButton">Mute</button>
+        <button class="audio" id="muteButton">
+            <i class="fas fa-volume-up"></i>
+        </button>
         <audio id="myAudio" src="audio/music.mp3.mp3" autoplay loop></audio>
 
     </div>
-    <script src="PageChoisirVoiture.js" ></script>
+    <script src="PageChoisirVoiture.js"></script>
 
 </body>
 

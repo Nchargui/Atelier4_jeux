@@ -1,4 +1,3 @@
-/*image background*/
 body {
     position: relative;
     width: 100%;
@@ -11,7 +10,6 @@ body {
 
 }
 
-/* Taille du carré */
 .AccueilBackground {
     height: 70%;
     width: 60%;
@@ -46,6 +44,7 @@ body {
 #Explication p{
 font-family: vapormax;
 }
+
 #leftPalm {
     position: absolute;
     top: 0;

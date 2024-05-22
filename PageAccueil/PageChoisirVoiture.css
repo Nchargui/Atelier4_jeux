@@ -49,7 +49,7 @@ body {
     background: linear-gradient( #e036c4, #e036c4, #e036c4); 
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
-    margin: -90px;
+    margin: -80px;
     font-style: italic; 
 }
 
@@ -128,7 +128,6 @@ body {
     font-family: vaporwave;
     padding: 10px 15px;
     font-size: 16px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -226,14 +225,12 @@ body {
 #muteButton {
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
 }
   
 .audio {
     position: fixed;
     bottom: 10px; 
     right: 175px; 
-    background-color: #f2f2f2;
     border: 5px solid #b991ec;
     color: #6448a7;
     font-family: vaporwave;
@@ -250,4 +247,3 @@ body {
 .audio:active {
     transform: scale(0.95);
 }
-
