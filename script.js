@@ -23,8 +23,11 @@ let lastFrameTime = 0;
 // Position initiale de la voiture ennemie
 let enemyCarX = 0;
 let enemyCarY = 0;
+let enemyCarInitialY = 0;
+let enemyCarVerticalMovement = 0;
 const enemyCarDistance = 40; // Distance horizontale de la voiture du joueur
 let enemyCarVelocity = 20; 
+const enemyCarVerticalSpeed = 2; // Vitesse de descente de la voiture ennemie
 
 function setUpRacingGame() {
     canvas.width = window.innerWidth;
@@ -38,6 +41,7 @@ function setUpRacingGame() {
     let enemyCarWidth = carWidthAndHeight * 1.5; // Largeur de la voiture ennemie
     enemyCarX = (canvas.width - enemyCarWidth) / 2; // Centrer la voiture ennemie
     enemyCarY = carY;
+    enemyCarInitialY = carY; // Définir la position verticale initiale
 }
 
 window.addEventListener('resize', setUpRacingGame);
@@ -94,7 +98,7 @@ function drawCar() {
 }
 
 function drawEnemyCar() {
-    context.drawImage(carEnemy, enemyCarX, enemyCarY * 0.9, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
+    context.drawImage(carEnemy, enemyCarX, enemyCarY + enemyCarVerticalMovement, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
 }
 
 let RoadFrames = [];
@@ -152,9 +156,9 @@ function moveCar() {
 function updateMovesCar() {
     moveCar();
 }
+
 function updateEnemyCar() {
     // Mettre à jour la position en déplaçant la voiture ennemie vers la droite
-    
     enemyCarX += enemyCarVelocity;
 
     // Vérifier si la voiture atteint la limite droite
@@ -163,13 +167,13 @@ function updateEnemyCar() {
         enemyCarVelocity *= -1; // Inverser la direction de déplacement vers la gauche
     }
 
-    // Vérifier si la voiture atteint la limite gauche
-    if (enemyCarX < 0 ) {
-        enemyCarX = 0; // Fixer la position à la limite gauche
-        enemyCarVelocity *= -1; // Inverser la direction de déplacement vers la droite
+    // Mettre à jour le mouvement vertical de la voiture ennemie
+    enemyCarVerticalMovement += enemyCarVerticalSpeed;
+    // Vérifier si la voiture est complètement descendue
+    if (enemyCarVerticalMovement > canvas.height + carWidthAndHeight * 1.5) {
+        enemyCarVerticalMovement = -carWidthAndHeight * 1.5; // Réinitialiser la position verticale au-dessus du canvas
     }
 }
-
 
 function gameLoop(timestamp) {
     if (timestamp - lastFrameTime < intervalFrame) {
@@ -183,7 +187,7 @@ function gameLoop(timestamp) {
     DrawFloor();
     LoadFloorGif();
     drawRoadFrame();
-    updateEnemyCar(); // Mettre à jour la position de la voiture ennemie
+    updateEnemyCar(); // Mettre à jour la position de la voiture ennemie et son mouvement vertical
     drawEnemyCar(); // Dessiner la voiture ennemie en premier
     drawCar(); // Dessiner la voiture du joueur par-dessus
     controllerCar();
@@ -191,3 +195,4 @@ function gameLoop(timestamp) {
 
     requestAnimationFrame(gameLoop);
 }
+
