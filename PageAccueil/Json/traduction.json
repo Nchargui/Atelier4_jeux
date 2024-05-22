@@ -5,7 +5,8 @@
       "pressStartRacing": "Let's race",
       "pickACar": "Choose",
       "yourCar": "your car",
-      "pressBack": "Back"
+      "pressBack": "Back",
+      "HowToPlay": "How to play?"
     },
     "fr": {
       "pressHowToPlay": "Comment jouer",
@@ -13,7 +14,8 @@
       "pressStartRacing": "Faisons la course",
       "pickACar": "Choisi",
       "yourCar": "ta voiture",
-      "pressBack": "Précédent"
+      "pressBack": "Précédent",
+      "HowToPlay": "Comment jouer?"
 
     },
     "es": {
@@ -22,7 +24,8 @@
       "pressStartRacing": "Vamos a correr",
       "pickACar": "Elige ",
       "yourCar": "tu coche",
-      "pressBack": "Regreso"
+      "pressBack": "Regreso",
+      "HowToPlay": "¿Cómo se juega?"
 
     }
   }
