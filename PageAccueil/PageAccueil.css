@@ -225,3 +225,6 @@ body {
     transform: scale(0.95);
 }
 
+.selected {
+    background-color: yellow;
+}
