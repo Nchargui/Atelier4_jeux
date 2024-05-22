@@ -20,14 +20,10 @@ let frameSeconde = 50;
 let intervalFrame = 100;
 let lastFrameTime = 0;
 
-// Position initiale de la voiture ennemie
-let enemyCarX = 0;
-let enemyCarY = 0;
-let enemyCarInitialY = 0;
-let enemyCarVerticalMovement = 0;
-const enemyCarDistance = 40; // Distance horizontale de la voiture du joueur
-let enemyCarVelocity = 20; 
-const enemyCarVerticalSpeed = 2; // Vitesse de descente de la voiture ennemie
+const coneWidthAndHeight = 50; // Taille des cônes
+let cones = [];
+let coneSpawnInterval = 2000; // Intervalle en ms pour l'apparition des cônes
+let lastConeSpawnTime = 0;
 
 function setUpRacingGame() {
     canvas.width = window.innerWidth;
@@ -37,11 +33,6 @@ function setUpRacingGame() {
 
     carX = (canvas.width - carWidthAndHeight) / 2;
     carY = (canvas.height - carWidthAndHeight) / 2;
-
-    let enemyCarWidth = carWidthAndHeight * 1.5; // Largeur de la voiture ennemie
-    enemyCarX = (canvas.width - enemyCarWidth) / 2; // Centrer la voiture ennemie
-    enemyCarY = carY;
-    enemyCarInitialY = carY; // Définir la position verticale initiale
 }
 
 window.addEventListener('resize', setUpRacingGame);
@@ -68,8 +59,8 @@ Cloud1.src = "img/cloud1.png";
 let carPlayer = new Image();
 carPlayer.src = "img/Car.png";
 
-let carEnemy = new Image();
-carEnemy.src = "img/enemy.png";
+let coneImage = new Image();
+coneImage.src = "img/cone.png";
 
 backgroundSky.onload = function () {
     setUpRacingGame();
@@ -97,8 +88,10 @@ function drawCar() {
     context.drawImage(carPlayer, carX, carY * 1.5, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
 }
 
-function drawEnemyCar() {
-    context.drawImage(carEnemy, enemyCarX, enemyCarY + enemyCarVerticalMovement, carWidthAndHeight * 1.5, carWidthAndHeight * 1.5);
+function drawCones() {
+    cones.forEach(cone => {
+        context.drawImage(coneImage, cone.x, cone.y, coneWidthAndHeight, coneWidthAndHeight);
+    });
 }
 
 let RoadFrames = [];
@@ -116,6 +109,9 @@ function LoadFloorGif() {
 function drawRoadFrame() {
     context.drawImage(RoadFrames[currentFrame], 0, 0, canvas.width, canvas.height);
     currentFrame++;
+    if (currentFrame >= RoadFrames.length) {
+        currentFrame = 0;
+    }
 }
 
 function controllerCar() {
@@ -157,22 +153,44 @@ function updateMovesCar() {
     moveCar();
 }
 
-function updateEnemyCar() {
-    // Mettre à jour la position en déplaçant la voiture ennemie vers la droite
-    enemyCarX += enemyCarVelocity;
+function spawnCone() {
+    const cone = {
+        x: Math.random() * (canvas.width - coneWidthAndHeight),
+        y: -coneWidthAndHeight // Commence au-dessus du canvas
+    };
+    cones.push(cone);
+}
 
-    // Vérifier si la voiture atteint la limite droite
-    if (enemyCarX >= canvas.width - carWidthAndHeight * 2.5) {
-        enemyCarX = canvas.width - carWidthAndHeight * 2.9; // Réduire la position à la limite droite
-        enemyCarVelocity *= -1; // Inverser la direction de déplacement vers la gauche
+function checkCollision(car, cone) {
+    return (
+        car.x < cone.x + coneWidthAndHeight &&
+        car.x + car.width > cone.x &&
+        car.y < cone.y + coneWidthAndHeight &&
+        car.y + car.height > cone.y
+    );
+}
+
+function updateCones() {
+    const currentTime = Date.now();
+    if (currentTime - lastConeSpawnTime > coneSpawnInterval) {
+        spawnCone();
+        lastConeSpawnTime = currentTime;
     }
 
-    // Mettre à jour le mouvement vertical de la voiture ennemie
-    enemyCarVerticalMovement += enemyCarVerticalSpeed;
-    // Vérifier si la voiture est complètement descendue
-    if (enemyCarVerticalMovement > canvas.height + carWidthAndHeight * 1.5) {
-        enemyCarVerticalMovement = -carWidthAndHeight * 1.5; // Réinitialiser la position verticale au-dessus du canvas
-    }
+    cones.forEach(cone => {
+        cone.y += velocity; // Faire descendre les cônes
+    });
+
+    // Supprimer les cônes qui sont en dehors de l'écran ou qui sont touchés par la voiture
+    cones = cones.filter(cone => {
+        if (cone.y >= canvas.height) {
+            return false; // En dehors de l'écran
+        }
+        if (checkCollision({ x: carX, y: carY * 1.5, width: carWidthAndHeight * 1.5, height: carWidthAndHeight * 1.5 }, cone)) {
+            return false; // Collision détectée
+        }
+        return true;
+    });
 }
 
 function gameLoop(timestamp) {
@@ -187,12 +205,14 @@ function gameLoop(timestamp) {
     DrawFloor();
     LoadFloorGif();
     drawRoadFrame();
-    updateEnemyCar(); // Mettre à jour la position de la voiture ennemie et son mouvement vertical
-    drawEnemyCar(); // Dessiner la voiture ennemie en premier
+    drawCones(); // Dessiner les cônes
     drawCar(); // Dessiner la voiture du joueur par-dessus
     controllerCar();
     updateMovesCar();
+    updateCones(); // Mettre à jour la position des cônes
 
     requestAnimationFrame(gameLoop);
 }
 
+// Démarre la boucle du jeu
+gameLoop();
