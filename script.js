@@ -1,5 +1,6 @@
 const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
+const restartButton = document.getElementById("restartButton");
 
 let carWidthAndHeight = 0;
 let carX = 0;
@@ -25,6 +26,10 @@ let cones = [];
 let coneSpawnInterval = 2000; // Intervalle en ms pour l'apparition des cônes
 let lastConeSpawnTime = 0;
 
+let score = 0;
+let timer = 30; // Compte à rebours en secondes
+let gameOver = false;
+
 function setUpRacingGame() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -33,6 +38,8 @@ function setUpRacingGame() {
 
     carX = (canvas.width - carWidthAndHeight) / 2;
     carY = (canvas.height - carWidthAndHeight) / 2;
+
+    setInterval(updateTimer, 1000); // Mettre à jour le timer chaque seconde
 }
 
 window.addEventListener('resize', setUpRacingGame);
@@ -51,7 +58,7 @@ let backgroundSky = new Image();
 backgroundSky.src = "img/1.png";
 
 let Floor = new Image();
-Floor.src = "img/Desert.png";
+Floor.src = "img/FloorRace.png";
 
 let Cloud1 = new Image();
 Cloud1.src = "img/cloud1.png";
@@ -115,8 +122,7 @@ function drawRoadFrame() {
 }
 
 function controllerCar() {
-    if (controllerIndex !== null) {
-        const gamepad = navigator.getGamepads()[controllerIndex];
+    if (controllerIndex !== null) {const gamepad = navigator.getGamepads()[controllerIndex];
         const buttons = gamepad.buttons;
         GoingLeft = buttons[14].pressed;
         GoingRight = buttons[15].pressed;
@@ -156,7 +162,7 @@ function updateMovesCar() {
 function spawnCone() {
     const cone = {
         x: Math.random() * (canvas.width - coneWidthAndHeight),
-        y: -coneWidthAndHeight // Commence au-dessus du canvas
+        y: -coneWidthAndHeight 
     };
     cones.push(cone);
 }
@@ -178,20 +184,62 @@ function updateCones() {
     }
 
     cones.forEach(cone => {
-        cone.y += velocity; // Faire descendre les cônes
+        cone.y += velocity; 
     });
 
-    // Supprimer les cônes qui sont en dehors de l'écran ou qui sont touchés par la voiture
+   
     cones = cones.filter(cone => {
         if (cone.y >= canvas.height) {
-            return false; // En dehors de l'écran
+            return false;
         }
         if (checkCollision({ x: carX, y: carY * 1.5, width: carWidthAndHeight * 1.5, height: carWidthAndHeight * 1.5 }, cone)) {
-            return false; // Collision détectée
+            score += 10; 
+            return false; 
         }
         return true;
     });
 }
+
+function updateTimer() {
+    if (timer > 0) {
+        timer--;
+    } else {
+        gameOver = true;
+        restartButton.style.display = "block"; 
+    }
+}
+
+function drawScoreAndTimer() {
+    context.font = "30px Arial";
+    context.fillStyle = "white";
+    context.fillText(`Score: ${score}`, 10, 30);
+    context.fillText(`Time: ${timer}s`, canvas.width - 150, 30);
+}
+
+function drawGameOver() {
+    context.font = "50px Arial";
+    context.fillStyle = "red";
+    context.fillText("Game Over", canvas.width / 2 - 150, canvas.height / 2);
+    if (score >= 100) {
+        context.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2 + 60);
+    } else {
+        context.fillText("You Lose!", canvas.width / 2 - 100, canvas.height / 2 + 60);
+    }
+}
+
+function resetGame() {
+    score = 0;
+    timer = 30;
+    gameOver = false;
+    cones = [];
+    carX = (canvas.width - carWidthAndHeight) / 2;
+    carY = (canvas.height - carWidthAndHeight) / 2;
+    lastConeSpawnTime = 0;
+    restartButton.style.display = "none"; 
+    gameLoop();
+}
+
+restartButton.addEventListener('click', resetGame);
 
 function gameLoop(timestamp) {
     if (timestamp - lastFrameTime < intervalFrame) {
@@ -205,14 +253,19 @@ function gameLoop(timestamp) {
     DrawFloor();
     LoadFloorGif();
     drawRoadFrame();
-    drawCones(); // Dessiner les cônes
-    drawCar(); // Dessiner la voiture du joueur par-dessus
+    drawCones(); 
+    drawCar(); 
     controllerCar();
     updateMovesCar();
-    updateCones(); // Mettre à jour la position des cônes
+    updateCones(); 
+    drawScoreAndTimer(); 
 
-    requestAnimationFrame(gameLoop);
+    if (gameOver) {
+        drawGameOver();
+    } else {
+        requestAnimationFrame(gameLoop);
+    }
 }
 
-// Démarre la boucle du jeu
 gameLoop();
+       
