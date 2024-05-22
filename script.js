@@ -7,13 +7,7 @@ let carX = 0;
 let carY = 0;
 let velocity = 0
 
-const enemyCars = [];
-const enemyCarCount =  4
-const enemyCarSize = 0.40;
-
-let enemyCarVelocity = 5;
-
-
+let enemyCars = [];
 
 ///////////////////////////////////////
 
@@ -46,41 +40,45 @@ function setUpRacingGame() {  // on veut que le jeux, fit les proportions de l'�
     carX = (canvas.width - carWidthAndHeight) / 2;
     carY = (canvas.height - carWidthAndHeight) / 2;
 
+}
 
-    enemyCarX = canvas.width / 3;
-    enemyCarY = canvas.height / 2;
-    enemyCarWidth = carWidthAndHeight / 6;
-    enemyCarHeight = carWidthAndHeight / 6;
-    enemyCarVelocity = velocity * 2;
-
-
-
+function EnemyCar(x, y, width, height, velocityY, growthCar){
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+    this.velocityY = velocityY;
+    this.growthCar = growthCar;
 }
 
 
 function infiniteSpawnCar() {  // aide AI
-    while (enemyCars.length < enemyCarCount) {
-        let size = carWidthAndHeight * enemyCarSize;
-        let roadWidth = canvas.width * 0.8;
-        let roadStartX = (canvas.width - roadWidth) / 2;
-        let roadTopY = RoadFrames[currentFrame].height * 0.2;
-        let roadBottomY = canvas.height * 0.8;
-        let spawnX = roadStartX + Math.random() * roadWidth;
-        let spawnY = roadTopY - size / 2; 
+    let spawnWidth = canvas.width * 0.8;
+    let offsetX = (canvas.width - spawnWidth) / 2; 
+    let spawnStartX = offsetX; 
+    let spawnEndX = spawnStartX + spawnWidth; 
+    let offsetY = canvas.height * 0.5; 
+    let spawnStartY = offsetY; 
+    let spawnEndY = canvas.height; 
 
-        let newenemyCars = {
-            x: spawnX,
-            y: spawnY,
-            width: size,
-            height: size,
-            velocityY: enemyCarVelocity
-        };
-        enemyCars.push(newenemyCars);
+    
+
+    // Generate random position for enemy car within the spawn range
+    let x = Math.random() * (spawnEndX - spawnStartX) + spawnStartX;
+    let y = Math.random() * (spawnEndY - spawnStartY) + spawnStartY;
+
+    // Create new enemy car instance
+    let sizeCar = carWidthAndHeight * 1.5;
+    let growthCar = 0.01;
+    let newEnemyCar = new EnemyCar(x, y, sizeCar, sizeCar, Math.random() * velocity + 1, growthCar);  // Pass growthCar
+
+    // Add enemy car to the array
+    enemyCars.push(newEnemyCar);
     }
-}
 
+    
+///////////////////////////////////////////3
 window.addEventListener('resize', setUpRacingGame);  //screen adapté à la fenêtre
-
 
 
 /// Utilisation de Gamepad API///////////////////////////////////////////3
@@ -231,20 +229,28 @@ function moveCar() {
 }
 
 
-function updateMovesCar() {
+function updateMovesCar() {  // ai
     moveCar();
-}
 
-
-function updateEnemyCar(){  // controler l'avancement des voitures ennemies
     enemyCars.forEach(car => {
-        car.y += car.velocityY; // Changed to move cars downwards
-        if (car.y > canvas.height) { // If the car goes below the canvas
-            car.x = Math.random() * (canvas.width - car.width);
-            car.y = -car.height; // Respawn above the canvas
+        car.y += car.velocityY;
+
+
+
+        car.width += car.growthCar;
+        car.height += car.growthCar;
+        
+        // Remove enemy car if it goes out of the screen
+        if (car.y > canvas.height) {
+            let index = enemyCars.indexOf(car);
+            enemyCars.splice(index, 1);
         }
     });
 }
+
+
+
+
 ///////////////////////////////////////
 
 
@@ -264,7 +270,6 @@ function gameLoop(timestamp) {  // controller la vitesse
     LoadFloorGif();
     drawRoadFrame();
     drawCarEnemy();
-    updateEnemyCar();
     drawCar();
     controllerCar();
     updateMovesCar();
