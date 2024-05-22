@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const backButton = document.getElementById("pressBack");
-    const startButton = document.getElementById("pressStartButton");
-    const howToPlayButton = document.getElementById("pressHowToPlay");
+    const startButton = document.getElementById("pressStartRacing"); 
     const languageButtons = document.querySelectorAll('.language-button');
-    const muteButton = document.getElementById('muteButton');
-    const buttons = [backButton, startButton, howToPlayButton, ...languageButtons].filter(button => button);
+    const buttons = [backButton, startButton, ...languageButtons].filter(button => button);
 
-    // Gestion des clics sur les boutons de navigation
     if (backButton) {
         backButton.addEventListener("click", function() {
             window.location.href = "PageAccueil.html";
@@ -19,41 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (howToPlayButton) {
-        howToPlayButton.addEventListener("click", function() {
-            window.location.href = "PageExplication.html";
-        });
-    }
-
-    // Audio
     const audio = document.getElementById('myAudio');
     audio.play();
 
+    // Bouton de sourdine
+    const muteButton = document.getElementById('muteButton');
     let isMuted = false;
 
     function updateMuteButtonIcon() {
-        if (isMuted) {
-            muteButton.innerHTML = '<i class="fas fa-volume-mute"></i>';
-        } else {
-            muteButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-        }
+        muteButton.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
     }
 
-    function toggleMute() {
-        if (isMuted) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
+    muteButton.addEventListener('click', () => {
+        isMuted ? audio.play() : audio.pause();
         isMuted = !isMuted;
         updateMuteButtonIcon();
-    }
-
-    if (muteButton) {
-        muteButton.addEventListener('click', () => {
-            toggleMute();
-        });
-    }
+    });
 
     updateMuteButtonIcon();
 
@@ -68,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.textContent = translations[lang][key];
                 });
                 sessionStorage.setItem('language', lang);
-
                 updateMuteButtonIcon();
             }
 
@@ -86,7 +63,53 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error loading translations:', error));
 
-    let selectedButtonIndex = 0;
+    // Contrôles de la manette de jeu
+    let controllerIndex = null;
+
+    window.addEventListener("gamepadconnected", (event) => {
+        controllerIndex = event.gamepad.index;
+        console.log("Manette connectée");
+    });
+
+    window.addEventListener("gamepaddisconnected", (event) => {
+        controllerIndex = null;
+        console.log("Manette déconnectée");
+    });
+
+    // Ajout d'un délai pour la navigation entre les boutons
+    let lastNavigationTime = 0;
+    const navigationDelay = 200;
+
+    function handleGamepadInput() {
+        if (controllerIndex !== null) {
+            var gamepad = navigator.getGamepads()[controllerIndex];
+            if (gamepad.buttons.length > 0) {
+                var buttonUp = gamepad.buttons[12];
+                var buttonDown = gamepad.buttons[13];
+                var buttonX = gamepad.buttons[0];
+                var currentTime = Date.now();
+
+                // Navigation entre boutons
+                if (currentTime - lastNavigationTime > navigationDelay) {
+                    if (buttonUp.pressed) {
+                        selectedButtonIndex = (selectedButtonIndex - 1 + buttons.length) % buttons.length;
+                        lastNavigationTime = currentTime;
+                    } else if (buttonDown.pressed) {
+                        selectedButtonIndex = (selectedButtonIndex + 1) % buttons.length;
+                        lastNavigationTime = currentTime;
+                    }
+                }
+
+                // Action "Clic" avec le bouton X
+                if (buttonX.pressed) {
+                    const selectedButton = buttons[selectedButtonIndex];
+                    if (selectedButton) {
+                        selectedButton.click();
+                    }
+                }
+            }
+        }
+    }
 
     function updateButtonSelection() {
         buttons.forEach((button, index) => {
@@ -98,29 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.addEventListener('mousemove', (event) => {
-        const mouseY = event.clientY;
-        const buttonHeight = buttons[0].offsetHeight;
-        selectedButtonIndex = Math.floor(mouseY / buttonHeight);
-        if (selectedButtonIndex < 0) {
-            selectedButtonIndex = 0;
-        } else if (selectedButtonIndex >= buttons.length) {
-            selectedButtonIndex = buttons.length - 1;
-        }
+    let selectedButtonIndex = 0;
 
+    function updateGamepadControls() {
+        handleGamepadInput();
         updateButtonSelection();
-    });
+        requestAnimationFrame(updateGamepadControls);
+    }
 
-    document.addEventListener('click', () => {
-        const selectedButton = buttons[selectedButtonIndex];
-        if (selectedButton) {
-            selectedButton.click();
-        }
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'x') {
-            toggleMute();
-        }
-    });
+    updateGamepadControls();
 });

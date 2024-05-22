@@ -247,3 +247,7 @@ body {
 .audio:active {
     transform: scale(0.95);
 }
+
+.selected {
+    background-color: #d1bdeb;
+}
