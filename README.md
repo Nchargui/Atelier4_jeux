@@ -88,8 +88,10 @@ voir le fichier sur les [Guide de conception](https://github.com/Nchargui/Atelie
 
 
 ## Sources
-![](https://www.youtube.com/watch?v=GOjMP6WY8CU&ab_channel=CodingWithAdam)
-![](https://codepen.io/jayeshcp/pen/zYvazzV)
+
+[comment utiliser gamepad api](https://www.youtube.com/watch?v=GOjMP6WY8CU&ab_channel=CodingWithAdam)
+
+[comment générer des obstacles](https://codepen.io/jayeshcp/pen/zYvazzV)
 
 
 
