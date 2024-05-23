@@ -32,13 +32,13 @@ let frameSeconde = 50;
 let intervalFrame = 100;
 let lastFrameTime = 0;
 
-const coneWidthAndHeight = 50; // Taille des cônes
+const coneWidthAndHeight = 50;
 let cones = [];
-let coneSpawnInterval = 2000; // Intervalle en ms pour l'apparition des cônes
+let coneSpawnInterval = 2000; 
 let lastConeSpawnTime = 0;
 
 let score = 0;
-let timer = 30; // Compte à rebours en secondes
+let timer = 30; 
 let gameOver = false;
 
 function setUpRacingGame() {
@@ -50,7 +50,7 @@ function setUpRacingGame() {
     carX = (canvas.width - carWidthAndHeight) / 2;
     carY = (canvas.height - carWidthAndHeight) / 2;
 
-    setInterval(updateTimer, 1000); // Mettre à jour le timer chaque seconde
+    setInterval(updateTimer, 1000); 
 }
 
 window.addEventListener('resize', setUpRacingGame);

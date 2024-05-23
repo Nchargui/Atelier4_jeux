@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 countdownElement.textContent = "Go!";
                 setTimeout(function() {
                     window.location.href = 'sender.html';
-                }, 1000); // Attendre 1 seconde avant la redirection après "Go!"
-            }, 500); // Attendre 0.5 seconde avant d'afficher "Go!" après la fin du compte à rebours
+                }, 1000); 
+            }, 500); 
         }
-    }, 700); // Intervalles de 0.5 seconde pour le compte à rebours
+    }, 700); 
 });

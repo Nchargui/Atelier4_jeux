@@ -74,8 +74,6 @@ canvas{
 
 
 
-
-
 @keyframes movingClouds {
   0% {
     transform: translateX(0);
@@ -85,7 +83,6 @@ canvas{
   }
 }
 
-/* Exemple de style CSS */
 button {
   position: absolute;
   bottom: 10px;
