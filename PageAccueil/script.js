@@ -1,6 +1,18 @@
 const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
 
+const restartButton = document.getElementById("restartButton");
+const backToMenuButton = document.getElementById("backToMenuButton");
+
+restartButton.addEventListener('click', function(){
+    window.location.href = 'decompte.html';
+
+});
+
+backToMenuButton.addEventListener('click', function() {
+    window.location.href = 'PageChoisirVoiture.html';
+});
+
 let carWidthAndHeight = 0;
 let carX = 0;
 let carY = 0;

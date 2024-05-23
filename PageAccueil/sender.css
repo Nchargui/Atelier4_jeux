@@ -85,3 +85,27 @@ canvas{
   }
 }
 
+/* Exemple de style CSS */
+button {
+  position: absolute;
+  bottom: 10px;
+  left: 160px;
+  padding: 10px 20px;
+  background-color: #60ddd3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#restartButton {
+  position: absolute;
+  left: 60px;
+  bottom: 10px;
+  transform: translateX(-20%);
+  display: none; 
+}
+
+button:hover {
+  background-color: #60ddd3;
+}
