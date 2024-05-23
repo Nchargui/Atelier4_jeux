@@ -3,7 +3,7 @@
 ## Auteure
 - [@Nchargui](https://github.com/Nchargui)
 - [@Aya](https://github.com/AyaIssa1)
-- 
+  
 ## Collaboration
 Pour ce travail de 40%, Nadine et Aya se sont vraiment partagé la tâche. Chacune a travaillé sur chaque partie du projet. Si une personne ne comprenait pas, l'autre venait l'aider et ainsi de suite.
 
@@ -50,10 +50,10 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 - [ ] faire avancer d'autre voiture ennemies
 
 ## Rapport d'essais 
-voir le fichier sur les [Rapport d'essais](https://github.com/guettafa/ChromeCast/tree/Atelier3_2283110/Tests_RapportFinale)
+voir le fichier sur les [Rapport d'essais](https://github.com/Nchargui/Atelier4_jeux/tree/main/RapportDessais)
 
 ## Guide de conception
-voir le fichier sur les [tests et rapport final](https://github.com/Nchargui/Atelier4_jeux/tree/main/Maquette_GuideConception/GuideDeConception)
+voir le fichier sur les [Maquette & Guide de conception](https://github.com/Nchargui/Atelier4_jeux/tree/main/Maquette_GuideConception/GuideDeConception)
 
 ## Maquettes
 
