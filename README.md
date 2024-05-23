@@ -26,12 +26,12 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 ### Installer l'extension Live Server sur Visual Studio Code.
 ### Lancer la page HTML PageAccueil.html :
 
--- Faites un clic droit sur le fichier PageAccueil.html.
--- Sélectionnez "Open with Live Server".
+> Faites un clic droit sur le fichier PageAccueil.html.
+> Sélectionnez "Open with Live Server".
 
 ### Configuration de la Manette
--- Connectez votre manette Bluetooth, de préférence une manette PlayStation.
--- Naviguez sur les pages pour commencer à jouer.
+>  Connectez votre manette Bluetooth, de préférence une manette PlayStation.
+>  Naviguez sur les pages pour commencer à jouer.
 
 ## Auteure
 - [@Nchargui](https://github.com/Nchargui)
