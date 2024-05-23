@@ -53,7 +53,7 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 voir le fichier sur les [Rapport d'essais](https://github.com/guettafa/ChromeCast/tree/Atelier3_2283110/Tests_RapportFinale)
 
 ## Guide de conception
-voir le fichier sur les [tests et rapport final](https://github.com/guettafa/ChromeCast/tree/Atelier3_2283110/Tests_RapportFinale)
+voir le fichier sur les [tests et rapport final]([https://github.com/guettafa/ChromeCast/tree/Atelier3_2283110/Tests_RapportFinale](https://github.com/Nchargui/Atelier4_jeux/tree/main/Maquette_GuideConception/GuideDeConception))
 
 ## Maquettes
 
