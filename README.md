@@ -7,26 +7,33 @@
 Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y accéder :
 
 1. Cloner le projet depuis GitHub :
-   ```sh
+```sh
    git clone https://github.com/Nchargui/Atelier4_jeux.git
-   ```
+```
 2. Entrer dans le dossier cloné :
 ```sh
     cd Atelier4_jeux
 ```
 4. Passer à la branche 'racing';
-  ```sh
+```sh
     git checkout racing
-   ```
+```
 5. Ouvrir le projet dans Visual Studio Code :
-  ```sh
+```sh
    code .
-  ```
+```
 
+### Installer l'extension Live Server sur Visual Studio Code.
+### Lancer la page HTML PageAccueil.html :
 
+-- Faites un clic droit sur le fichier PageAccueil.html.
+-- Sélectionnez "Open with Live Server".
+
+### Configuration de la Manette
+-- Connectez votre manette Bluetooth, de préférence une manette PlayStation.
+-- Naviguez sur les pages pour commencer à jouer.
 
 ## Auteure
-
 - [@Nchargui](https://github.com/Nchargui)
 - [@Aya](https://github.com/AyaIssa1)
 Pour ce travail de 40%, Nadine & Aya se sont entre aidé tous le long du projet.
