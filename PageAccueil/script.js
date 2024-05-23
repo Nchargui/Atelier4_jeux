@@ -1,6 +1,5 @@
 const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
-const restartButton = document.getElementById("restartButton");
 
 let carWidthAndHeight = 0;
 let carX = 0;
@@ -53,12 +52,11 @@ window.addEventListener('gamepaddisconnected', (event) => {
     console.log("La manette est déconnectée");
     controllerIndex = null;
 });
-
 let backgroundSky = new Image();
 backgroundSky.src = "img/1.png";
 
 let Floor = new Image();
-Floor.src = "img/FloorRace.png";
+Floor.src = "img/Desert.png";
 
 let Cloud1 = new Image();
 Cloud1.src = "img/cloud1.png";
@@ -217,15 +215,18 @@ function drawScoreAndTimer() {
 }
 
 function drawGameOver() {
-    context.font = "50px Arial";
-    context.fillStyle = "red";
-    context.fillText("Game Over", canvas.width / 2 - 150, canvas.height / 2);
+    context.font = "70px Arial";
+    context.fillStyle = "Black";
+    var textWidth = context.measureText("GAME OVER").width;
+    context.fillText("GAME OVER", (canvas.width - textWidth) / 2, canvas.height / 3);
+    
     if (score >= 100) {
-        context.fillText("You Win!", canvas.width / 2 - 100, canvas.height / 2 + 60);
+        context.fillText("YOU WON!", (canvas.width - textWidth) / 2, canvas.height / 3 + 60);
     } else {
-        context.fillText("You Lose!", canvas.width / 2 - 100, canvas.height / 2 + 60);
+        context.fillText("YOU LOSE!", (canvas.width - textWidth) / 2, canvas.height / 3 + 60);
     }
 }
+
 
 function resetGame() {
     score = 0;

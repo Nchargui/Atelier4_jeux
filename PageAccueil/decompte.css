@@ -1,0 +1,26 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3a7f1;
+}
+
+.container {
+    font-size: 100px;
+    color: #d598f1;
+}
+
+#countdown {
+    animation: countdown 5s linear;
+}
+
+@keyframes countdown {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
