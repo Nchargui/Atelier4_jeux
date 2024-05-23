@@ -6,7 +6,8 @@
       "pickACar": "Choose",
       "yourCar": "your car",
       "pressBack": "Back",
-      "HowToPlay": "How to play?"
+      "HowToPlay": "How to play?",
+      "gameExplanation": "Your boss is making you collect the cones falling from the sky. Move from right to left using your remote or keyboard to grab the cones before the timer runs out, or else you'll be fired!"
     },
     "fr": {
       "pressHowToPlay": "Comment jouer",
@@ -15,7 +16,8 @@
       "pickACar": "Choisi",
       "yourCar": "ta voiture",
       "pressBack": "Précédent",
-      "HowToPlay": "Comment jouer?"
+      "HowToPlay": "Comment jouer?",
+      "gameExplanation": "Votre patron vous oblige à collecter les cônes qui tombent du ciel. Déplacez-vous de droite à gauche à l'aide de votre télécommande ou du clavier pour attraper les cônes avant la fin du compte à rebours, sinon vous serez renvoyé !"
 
     },
     "es": {
@@ -25,7 +27,8 @@
       "pickACar": "Elige ",
       "yourCar": "tu coche",
       "pressBack": "Regreso",
-      "HowToPlay": "¿Cómo se juega?"
+      "HowToPlay": "¿Cómo se juega?",
+      "gameExplanation": "Tu jefe te obliga a recoger los conos que caen del cielo. Muévete de derecha a izquierda usando tu control remoto o teclado para atrapar los conos antes de que se acabe el tiempo, ¡o serás despedido!"
 
     }
   }

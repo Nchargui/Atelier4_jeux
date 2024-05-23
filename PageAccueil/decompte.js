@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 countdownElement.textContent = "Go!";
                 setTimeout(function() {
-                    window.location.href = 'sender.html';
+                    window.location.href = 'JeuVoiture.html';
                 }, 1000); 
             }, 500); 
         }

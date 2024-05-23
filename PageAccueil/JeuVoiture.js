@@ -1,23 +1,33 @@
+
+// inisialiser le canva
 const canvas = document.getElementById("RacingGame");
 const context = canvas.getContext("2d");
 
 const restartButton = document.getElementById("restartButton");
 const backToMenuButton = document.getElementById("backToMenuButton");
 
+
+// recommencer le jeux
 restartButton.addEventListener('click', function(){
     window.location.href = 'decompte.html';
 
 });
 
+
+// aller dans le menu
 backToMenuButton.addEventListener('click', function() {
     window.location.href = 'PageChoisirVoiture.html';
 });
 
+
+// valeur pour la voiture
 let carWidthAndHeight = 0;
 let carX = 0;
 let carY = 0;
 let velocity = 0;
 
+
+// controle de la manette
 let controllerIndex = null;
 let GoingLeft = false;
 let GoingRight = false;
@@ -25,11 +35,23 @@ let VibrateController = false;
 let GoingUp = false;
 let GoingDown = false;
 
+///controler clavier
+let keys = {};
+
+window.addEventListener('keydown', function(e) {
+    keys[e.key] = true;
+});
+
+window.addEventListener('keyup', function(e) {
+    delete keys[e.key];
+});
+
+// pour l'animation des asests
 let cloud1X = 0;
 let cloud1Velocity = 1;
 
 let frameSeconde = 50;
-let intervalFrame = 100;
+let intervalFrame = 40;
 let lastFrameTime = 0;
 
 const coneWidthAndHeight = 50;
@@ -41,6 +63,8 @@ let score = 0;
 let timer = 30; 
 let gameOver = false;
 
+
+// responsive
 function setUpRacingGame() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -55,6 +79,8 @@ function setUpRacingGame() {
 
 window.addEventListener('resize', setUpRacingGame);
 
+
+//api gamepad code
 window.addEventListener('gamepadconnected', (event) => {
     controllerIndex = event.gamepad.index;
     console.log("La manette est connectée")
@@ -64,6 +90,9 @@ window.addEventListener('gamepaddisconnected', (event) => {
     console.log("La manette est déconnectée");
     controllerIndex = null;
 });
+
+
+// inisialiser les images des assets
 let backgroundSky = new Image();
 backgroundSky.src = "img/1.png";
 
@@ -83,7 +112,7 @@ backgroundSky.onload = function () {
     setUpRacingGame();
     gameLoop();
 }
-
+// le bg du canva
 function clearScreen() {
     context.drawImage(backgroundSky, 0, 0, canvas.width, canvas.height);
 }
@@ -110,7 +139,7 @@ function drawCones() {
         context.drawImage(coneImage, cone.x, cone.y, coneWidthAndHeight, coneWidthAndHeight);
     });
 }
-
+// utilisation d'une boucle pour load le gif car sur canva sa marche pas
 let RoadFrames = [];
 let currentFrame = 0;
 
@@ -131,14 +160,32 @@ function drawRoadFrame() {
     }
 }
 
+
+/// inisialiser toute les controles pour la manette
 function controllerCar() {
-    if (controllerIndex !== null) {const gamepad = navigator.getGamepads()[controllerIndex];
+    if (controllerIndex !== null) 
+        {const gamepad = navigator.getGamepads()[controllerIndex];
         const buttons = gamepad.buttons;
         GoingLeft = buttons[14].pressed;
         GoingRight = buttons[15].pressed;
         VibrateController = buttons[13].pressed;
         GoingUp = buttons[12].pressed;
         GoingDown = buttons[6].pressed;
+
+        const stickDeadZone = 0.5;
+        const GoingLeftRight = gamepad.axes[0];
+
+
+        if(GoingLeftRight >= stickDeadZone){
+            GoingLeft = true
+        }
+
+        else if(GoingLeftRight <= -stickDeadZone){
+            GoingRight = true;
+
+        }
+
+
         if (VibrateController) {
             gamepad.vibrationActuator.playEffect("dual-rumble", {
                 startDelay: 0,
@@ -150,6 +197,8 @@ function controllerCar() {
     }
 }
 
+
+// choisir les mouvent par rapport au controles
 function moveCar() {
     if (GoingLeft && carX > 0) {
         carX -= velocity;
@@ -157,18 +206,25 @@ function moveCar() {
     if (GoingRight && carX < canvas.width - carWidthAndHeight * 1.5) {
         carX += velocity;
     }
-    if (GoingUp && carY > canvas.height * 0.3) {
-        carY -= velocity;
-    }
+   
     if (GoingDown && carY < canvas.height - carWidthAndHeight * 1.5) {
         carY += velocity;
     }
+    if (keys['ArrowLeft'] && carX > 0) {
+        carX -= velocity;
+    }
+    if (keys['ArrowRight'] && carX < canvas.width - carWidthAndHeight * 1.5) {
+        carX += velocity;
+    }
 }
 
+// mise a jour du mouvement de la voiture
 function updateMovesCar() {
     moveCar();
 }
 
+
+// faire apparaitre les cones
 function spawnCone() {
     const cone = {
         x: Math.random() * (canvas.width - coneWidthAndHeight),
@@ -177,6 +233,8 @@ function spawnCone() {
     cones.push(cone);
 }
 
+
+// regarder si il y a une collision
 function checkCollision(car, cone) {
     return (
         car.x < cone.x + coneWidthAndHeight &&
@@ -204,13 +262,25 @@ function updateCones() {
         }
         if (checkCollision({ x: carX, y: carY * 1.5, width: carWidthAndHeight * 1.5, height: carWidthAndHeight * 1.5 }, cone)) {
             score += 10; 
+            if (controllerIndex !== null) {  // si ya collison le score monte et la mannette vibre
+                const gamepad = navigator.getGamepads()[controllerIndex];
+                if (gamepad && gamepad.vibrationActuator) {
+
+                    gamepad.vibrationActuator.playEffect("dual-rumble", {
+                        startDelay: 0,
+                        duration: 100,
+                        weakMagnitude: 0.5,
+                        strongMagnitude: 0.5,
+                    });
+                }
+            }
             return false; 
         }
         return true;
     });
 }
 
-function updateTimer() {
+function updateTimer() {  //timer de la partie 
     if (timer > 0) {
         timer--;
     } else {
@@ -254,6 +324,9 @@ function resetGame() {
 
 restartButton.addEventListener('click', resetGame);
 
+
+
+// la loop pour faire fonctionner le jeux
 function gameLoop(timestamp) {
     if (timestamp - lastFrameTime < intervalFrame) {
         requestAnimationFrame(gameLoop);
