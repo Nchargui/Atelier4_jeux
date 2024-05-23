@@ -1,7 +1,13 @@
 # Jeux de voitures avec javascript
 
-# Atelier 4 Jeux
+## Auteure
+- [@Nchargui](https://github.com/Nchargui)
+- [@Aya](https://github.com/AyaIssa1)
+- 
+## Collaboration
+Pour ce travail de 40%, Nadine et Aya se sont vraiment partagé la tâche. Chacune a travaillé sur chaque partie du projet. Si une personne ne comprenait pas, l'autre venait l'aider et ainsi de suite.
 
+# Atelier 4 Jeux
 ## Instructions pour accéder au jeu
 
 Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y accéder :
@@ -32,12 +38,6 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 ### Configuration de la Manette
 >  Connectez votre manette Bluetooth, de préférence une manette PlayStation.
 >  Naviguez sur les pages pour commencer à jouer.
-
-## Auteure
-- [@Nchargui](https://github.com/Nchargui)
-- [@Aya](https://github.com/AyaIssa1)
-Pour ce travail de 40%, Nadine & Aya se sont entre aidé tous le long du projet.
-
   
 ## Fonctionnalités
 - [x] Menu du jeu
@@ -68,19 +68,19 @@ voir le fichier sur les [tests et rapport final](https://github.com/guettafa/Chr
 
 
 
-## Mode d'emploi de la manette
+## Mode d'emploi
 > [!IMPORTANT]
-> Il est requit d'avoir un editeur de code comme visual studio, un chrome cast et une extention pour pouvoir ouvrir les pages HTML
+> Il est requit d'avoir un editeur de code comme visual studio, une manette et une extention pour pouvoir ouvrir les pages HTML
 
 1) Clonez le répertoire localement ou télécharger la version la plus récente sur votre appareil
 
 2) Ouvir le dossier dans un éditeur de code
 
-3) Allez dans le dossier "src", puis dossier "front" et faite clique droit dans le fichier "sender.html" pour utiliser l'extention pour ouvrir le ficier html
+3) Allez dans le dossier "PageAcceuil",  et faite clique droit dans le fichier "PageAccueil.html" pour utiliser l'extention pour ouvrir le fichier html
 
-4) Dans la page, faite clique droit, puis allez sur caster pour choisr votre chrome cast.
+4) Dans la page, soyez certain d'avoir connecté votre manette, de préférence une PlayStation.
 
-5) Cliquer sur le boutons pour caster et quand l'icon devient verte, vous êtes prêts à l'utiliser
+5) Naviguez et amusez-vous!
 
 
 
