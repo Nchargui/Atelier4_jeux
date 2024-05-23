@@ -28,12 +28,12 @@ voir le fichier sur les [tests et rapport final](https://github.com/guettafa/Chr
 ## Maquettes
 
 ### Avant : 
-![](Maquette_GuideConception/Maquette1.png)
+![](Maquette_GuideConception/Maquette1.jpg)
 
 ### Après : 
-![](Maquette_GuideConception/Maquette2_1.png)
-![](Maquette_GuideConception/Maquette2_2.png)
-![](Maquette_GuideConception/Maquette2_3.png)
+![](Maquette_GuideConception/Maquette2_1.jpg)
+![](Maquette_GuideConception/Maquette2_2.jpg)
+![](Maquette_GuideConception/Maquette2_3.jpg)
 
 
 
