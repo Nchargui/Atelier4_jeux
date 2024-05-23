@@ -53,7 +53,7 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 voir le fichier sur les [Rapport d'essais](https://github.com/Nchargui/Atelier4_jeux/tree/main/RapportDessais)
 
 ## Guide de conception
-voir le fichier sur les [Maquette & Guide de conception](https://github.com/Nchargui/Atelier4_jeux/tree/main/Maquette_GuideConception/GuideDeConception)
+voir le fichier sur les [Guide de conception](https://github.com/Nchargui/Atelier4_jeux/tree/main/Maquette_GuideConception/GuideDeConception)
 
 ## Maquettes
 
