@@ -31,18 +31,21 @@ Le jeu se trouve sur la branche `main`. Suivez les étapes ci-dessous pour y acc
 ```sh
     cd Atelier4_jeux
 ```
+   
 5. Ouvrir le projet dans Visual Studio Code :
 ```sh
    code .
 ```
 
-6. Installer l'extension Live Server sur Visual Studio Code.
-   
-7. Lancer la page HTML PageAccueil.html :
+6. Aller dans le fichier "jeux"
 
-8. Faites un clic droit sur le fichier PageAccueil.html.
+7. Installer l'extension Live Server sur Visual Studio Code.
    
-9. Sélectionnez "Open with Live Server".
+8. Lancer la page HTML PageAccueil.html :
+
+9. Faites un clic droit sur le fichier PageAccueil.html.
+   
+10. Sélectionnez "Open with Live Server".
 
    
 
