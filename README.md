@@ -9,7 +9,7 @@
 - [@Aya](https://github.com/AyaIssa1)
   
 ## Collaboration
-Pour ce travail de 40%, Nadine et Aya se sont vraiment partagé la tâche. Chacune a travaillé sur chaque partie du projet. Si une personne ne comprenait pas, l'autre venait l'aider et ainsi de suite.
+Pour ce travail de 40%, Nadine et Aya se sont vraiment partagé la tâche. Chacune a travaillé sur chaque partie du projet. Si une personne ne comprenait pas, l'autre venait l'aider et ainsi de suite. Aussi, nous avons seulement merge une seule fois alors il se peut que des commits ne soit pas dans le main, mais dans la branche "racing" ou encrore "racingTest"
 
 # Atelier 4 Jeux
 ## Instructions pour accéder au jeu
