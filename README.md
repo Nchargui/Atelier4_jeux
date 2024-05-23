@@ -1,12 +1,32 @@
 # Jeux de voitures avec javascript
 
+# Atelier 4 Jeux
+
+## Instructions pour accéder au jeu
+
+Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y accéder :
+
+1. Cloner le projet depuis GitHub :
+   ```sh
+  - git clone https://github.com/Nchargui/Atelier4_jeux.git
+
+2. Entrer dans le dossier cloné :
+    cd Atelier4_jeux
+
+3. Passer à la branche 'racing';
+    git checkout racing
+   
+4. Ouvrir le projet dans Visual Studio Code :
+   code .
+
+
 
 
 ## Auteure
 
 - [@Nchargui](https://github.com/Nchargui)
 - [@Aya](https://github.com/AyaIssa1)
-
+Pour ce travail de 40%, Nadine & Aya se sont entre aidé tous le long du projet.
 
   
 ## Fonctionnalités
