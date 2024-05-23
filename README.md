@@ -9,7 +9,7 @@ Le jeu se trouve sur la branche `racing`. Suivez les étapes ci-dessous pour y a
 1. Cloner le projet depuis GitHub :
    ```sh
   - git clone https://github.com/Nchargui/Atelier4_jeux.git
-
+ ```
 2. Entrer dans le dossier cloné :
     cd Atelier4_jeux
 
